@@ -1,0 +1,75 @@
+{
+  "tool": "ammo_economy",
+  "recorded_at": "2026-08-29_135436",
+  "unix_time": 1788004476,
+  "provenance": "measured",
+  "params": {
+    "detector": "engine_labels",
+    "guard": "korridor+gedaechtnis",
+    "steps": 150,
+    "seed": 21,
+    "monsters": 7,
+    "humans": 5,
+    "tics": 4
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "ae96ac92ef5a",
+      "classifier.py": "aa06d7cd2b34",
+      "detector.py": "ad80f6558f76",
+      "env.py": "a8025b160e29",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "a90266ab2918",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "08525e1f61ab",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "97200a4a3bea",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "5307f5a6c9b9",
+      "vertical.py": "e7ea1a2c4de3"
+    },
+    "combined": "42c07f3e09d8"
+  },
+  "notes": "Zielgenauigkeit gegen Munitionsverbrauch, mit perfekter Erkennung gemessen, um die Zielmechanik zu isolieren. Kernbefund: dieselbe Stellschraube senkt Verbrauch UND Eigenbeschuss, ohne Wirksamkeit zu kosten - Sparsamkeit ist selbst eine Schutzmassnahme. Offen: ob das die Boxunschaerfe des echten Detektors uebersteht.",
+  "rows": [
+    {
+      "tolerance_px": 30,
+      "shots": 14,
+      "ammo": 20,
+      "ammo_per_kill": 2.9,
+      "friendly_fire": 5,
+      "monsters": "7/7"
+    },
+    {
+      "tolerance_px": 14,
+      "shots": 17,
+      "ammo": 18,
+      "ammo_per_kill": 2.6,
+      "friendly_fire": 0,
+      "monsters": "7/7"
+    },
+    {
+      "tolerance_px": 6,
+      "shots": 17,
+      "ammo": 18,
+      "ammo_per_kill": 2.6,
+      "friendly_fire": 0,
+      "monsters": "7/7"
+    },
+    {
+      "tolerance_px": 3,
+      "shots": 12,
+      "ammo": 14,
+      "ammo_per_kill": 2.0,
+      "friendly_fire": 0,
+      "monsters": "7/7"
+    }
+  ]
+}

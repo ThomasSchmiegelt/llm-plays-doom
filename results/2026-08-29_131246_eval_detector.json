@@ -1,0 +1,61 @@
+{
+  "tool": "eval_detector",
+  "recorded_at": "2026-08-29_131246",
+  "unix_time": 1788001966,
+  "provenance": "backfilled",
+  "params": {
+    "scenario": "defend_the_center",
+    "frames": 25,
+    "iou": 0.4,
+    "resolution": "640x480"
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "note": "Codestand nicht rekonstruierbar (nachgetragen)"
+  },
+  "notes": "Aus dem Sitzungsprotokoll vom 26.08. nachgetragen. Erste Ausbaustufe, nur Monster, noch ohne geschuetzte Klasse.",
+  "rows": [
+    {
+      "classes": "monster, soldier, demon, imp, zombie",
+      "resolution": "640x480",
+      "recall": 0.971,
+      "precision": 0.892,
+      "ms": 603,
+      "chosen": true
+    },
+    {
+      "classes": "monster, enemy soldier, demon",
+      "resolution": "640x480",
+      "recall": 0.882,
+      "precision": 0.882,
+      "ms": 451
+    },
+    {
+      "classes": "monster, demon",
+      "resolution": "640x480",
+      "recall": 0.971,
+      "precision": 0.673,
+      "ms": 3585,
+      "note": "Wiederholungsschleife"
+    },
+    {
+      "classes": "monster, soldier, demon, imp, zombie",
+      "resolution": "320x240",
+      "recall": 0.879,
+      "precision": 0.853,
+      "ms": 609
+    },
+    {
+      "classes": "monster, enemy soldier, demon",
+      "resolution": "320x240",
+      "recall": 0.576,
+      "precision": 1.0,
+      "ms": 347
+    }
+  ]
+}

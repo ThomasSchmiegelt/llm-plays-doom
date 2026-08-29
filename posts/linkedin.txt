@@ -1,0 +1,26 @@
+Ein Vision-Language-Modell spielt Doom. Es erkennt Monster, zielt, schießt — und lässt die Menschen im Bild in Ruhe.
+
+Gebaut an einem Nachmittag. Ohne Trainingsdaten, ohne Fine-Tuning, ohne ein einziges selbst gelabeltes Bild.
+
+Die Teile:
+• ViZDoom — ein pip install, die Freedoom-Level bringt es gleich mit
+• NVIDIA LocateAnything-3B von HuggingFace, rund 7 GB, läuft auf einer RTX 3090
+• etwa 1.600 Zeilen Python
+
+Bemerkenswert ist nicht, dass es funktioniert. Bemerkenswert ist, was weggefallen ist.
+
+Vor ein paar Jahren wäre das ein Quartal Arbeit gewesen: Sprites sammeln, Bounding Boxes labeln, einen Detektor trainieren — und bei jeder neuen Gegnerart wieder von vorn. Heute ist "worauf schießt der Agent" eine Liste von Strings im Code. Wer statt Monstern Kisten auf einem Förderband finden will, ändert fünf Zeilen.
+
+Zwei Dinge waren dann doch nicht geschenkt.
+
+Erstens: Die Formulierung entscheidet.
+Mit "monster, demon, imp, human, soldier" hielt das Modell 56 % der Menschen fälschlich für Monster. Mit "brown insect monster, pink fleshy worm creature, grey armored human soldier" — also Beschreibungen statt Kategorien — waren es 6 %. Gleiche Bilder, gleiches Modell, andere Worte.
+
+Zweitens: Wahrnehmung ist nicht mehr das Problem. Der Umgang mit ihrer Unschärfe schon.
+Ohne Absicherung feuerte der Agent 19-mal, während ein Mensch in der Schusslinie stand. Mit zwei ganz klassischen Maßnahmen — einem gesperrten Schusskorridor und einem Vier-Bilder-Gedächtnis, das eine einmal erkannte Person kurz festhält — waren es null. Bei unveränderter Trefferquote auf die Monster.
+
+Beides habe ich nicht durch Nachdenken gefunden, sondern durch Messen. Die Doom-Engine kennt die exakte Bildschirmposition jedes Gegners. Also ließ sich jede Modellausgabe gegen die Wahrheit halten — und die Diskussion "welcher Prompt ist besser" wurde zu einer Tabelle.
+
+Das ist die eigentliche Verschiebung: Die Hürde ist nicht mehr das Modell. Sie ist zu wissen, wogegen man misst.
+
+#ComputerVision #VLM #MachineLearning #AI #Python

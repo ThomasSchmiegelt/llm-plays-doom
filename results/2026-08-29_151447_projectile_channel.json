@@ -1,0 +1,70 @@
+{
+  "tool": "projectile_channel",
+  "recorded_at": "2026-08-29_151447",
+  "unix_time": 1788009287,
+  "provenance": "measured",
+  "params": {
+    "scenario": "arena_mixed",
+    "seed": 4,
+    "frames_with": 23,
+    "frames_without": 11,
+    "prompt": "4 feindlich + 1 geschuetzt + 1 Projektil + 1 weit",
+    "resolution": "640x480"
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "1e6ef3c13cb3",
+      "classifier.py": "aa06d7cd2b34",
+      "detector.py": "ad80f6558f76",
+      "env.py": "70232052d358",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "08525e1f61ab",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "97200a4a3bea",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "5307f5a6c9b9",
+      "vertical.py": "e7ea1a2c4de3"
+    },
+    "combined": "2629e2305549"
+  },
+  "notes": "Kann LocateAnything fliegende Doom-Projektile melden? Nein. Alle vier Formulierungen haben eine hoehere Fehlalarmquote als Trefferquote - der Kanal traegt negative Information. Frames aus einem echten Arena-Lauf, weil sich im isolierten Pruefstand kein Monster zum Feuern bewegen liess: summon setzt Aktoren auf 64 Einheiten, also in Nahkampfreichweite, wo Imps kratzen statt zu schiessen. Nicht weiterverfolgt.",
+  "rows": [
+    {
+      "phrase": "a glowing fireball",
+      "recall": 0.13,
+      "false_alarm": 0.36,
+      "iou": 0.51,
+      "ms": 1451
+    },
+    {
+      "phrase": "a bright orange energy ball",
+      "recall": 0.13,
+      "false_alarm": 0.55,
+      "iou": 0.25,
+      "ms": 1505
+    },
+    {
+      "phrase": "a glowing projectile in the air",
+      "recall": 0.0,
+      "false_alarm": 0.0,
+      "iou": 0.0,
+      "ms": 1481
+    },
+    {
+      "phrase": "a burning sphere of light",
+      "recall": 0.04,
+      "false_alarm": 0.27,
+      "iou": 0.02,
+      "ms": 1507
+    }
+  ]
+}

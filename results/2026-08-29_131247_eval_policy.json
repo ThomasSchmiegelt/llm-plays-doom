@@ -1,0 +1,47 @@
+{
+  "tool": "eval_policy",
+  "recorded_at": "2026-08-29_131247",
+  "unix_time": 1788001967,
+  "provenance": "backfilled",
+  "params": {
+    "steps": 150,
+    "seed": 21,
+    "monsters": 7,
+    "humans": 5,
+    "tics": 4,
+    "run_date": "29.08"
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "note": "Codestand nicht rekonstruierbar (nachgetragen)"
+  },
+  "notes": "Zwei Laeufe derselben Konfiguration. Der Unterschied zwischen ihnen ist kein Regress, sondern Sampling beim Dekodieren - die Richtung haelt, die exakte Null nicht.",
+  "rows": [
+    {
+      "guard": "ohne",
+      "shots": 49,
+      "holds": 0,
+      "friendly_fire": 13,
+      "monsters": "7/7"
+    },
+    {
+      "guard": "korridor",
+      "shots": 20,
+      "holds": 19,
+      "friendly_fire": 1,
+      "monsters": "7/7"
+    },
+    {
+      "guard": "korridor+gedaechtnis",
+      "shots": 17,
+      "holds": 43,
+      "friendly_fire": 1,
+      "monsters": "7/7"
+    }
+  ]
+}

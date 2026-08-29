@@ -1,0 +1,65 @@
+{
+  "tool": "eval_unknown",
+  "recorded_at": "2026-08-29_131247",
+  "unix_time": 1788001967,
+  "provenance": "backfilled",
+  "params": {
+    "scenario": "arena_mixed",
+    "seed": 11,
+    "probes": 6,
+    "mode": "crop",
+    "actors": 14
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "note": "Codestand nicht rekonstruierbar (nachgetragen)"
+  },
+  "notes": "Einordnung Unbekannter. 'einzelfeld' = alle Beschreibungen treten in einer Abfrage an; 'turnier' = pro Bild ein ausgewogenes Quartett mit wechselnden Paarungen. Zwei der 14 Faelle sind summonfriend-Zwillinge und visuell prinzipiell unloesbar.",
+  "rows": [
+    {
+      "hypotheses": "descriptive",
+      "scheme": "einzelfeld",
+      "correct": 7,
+      "total": 14
+    },
+    {
+      "hypotheses": "descriptive",
+      "scheme": "turnier",
+      "correct": 10,
+      "total": 14,
+      "normal": "10/12",
+      "chosen": true
+    },
+    {
+      "hypotheses": "animate",
+      "scheme": "einzelfeld",
+      "correct": 9,
+      "total": 14
+    },
+    {
+      "hypotheses": "animate",
+      "scheme": "turnier",
+      "correct": 10,
+      "total": 14,
+      "normal": "10/12"
+    },
+    {
+      "hypotheses": "combined",
+      "scheme": "einzelfeld",
+      "correct": 6,
+      "total": 14,
+      "note": "mit Ausweichklassen - schlechter"
+    },
+    {
+      "hypotheses": "combined",
+      "scheme": "turnier",
+      "correct": 9,
+      "total": 14
+    }
+  ]
+}

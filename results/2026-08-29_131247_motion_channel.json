@@ -1,0 +1,36 @@
+{
+  "tool": "motion_channel",
+  "recorded_at": "2026-08-29_131247",
+  "unix_time": 1788001967,
+  "provenance": "backfilled",
+  "params": {
+    "seed": 11,
+    "actors": 14,
+    "thumb": 32,
+    "shift_tolerance": 3
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "note": "Codestand nicht rekonstruierbar (nachgetragen)"
+  },
+  "notes": "Pixelaenderung innerhalb der verfolgten Box. Ergebnis unbrauchbar, und die Fehlersuche war der Ertrag: gemessen wurde Boxinstabilitaet mal Texturdetail, und die einzeln gespawnten Monster waren gar nicht wach (exakt 0.00 ueber neun Ansichten). Verworfen wurde der Kanal dann durch ein Argument, nicht durch die Messung: ein stehender Fernkaempfer bewegt sich nicht.",
+  "rows": [
+    {
+      "threshold": 5.0,
+      "correct": 3,
+      "total": 14,
+      "normal": "2/12"
+    },
+    {
+      "note": "BurningBarrel 47.9 - animierte Flamme, echtes Signal"
+    },
+    {
+      "note": "HellKnight / BaronOfHell / ShotgunGuy je 0.00 - Monster schliefen"
+    }
+  ]
+}

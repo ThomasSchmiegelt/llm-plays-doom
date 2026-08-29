@@ -1,0 +1,17 @@
+# Umgebung
+.venv/
+__pycache__/
+*.pyc
+
+# Aufzeichnungen: gross und jederzeit reproduzierbar.
+# src/main.py --record ... erzeugt sie neu, src/make_social.py schneidet sie zu.
+out/
+
+# Modellgewichte liegen im HuggingFace-Cache, nicht im Repository.
+
+# Von ViZDoom zur Laufzeit erzeugt
+_vizdoom.ini
+_vizdoom.cfg
+
+# Persoenliches Hilfsskript (enthaelt eine Sitzungs-ID)
+restar.sh

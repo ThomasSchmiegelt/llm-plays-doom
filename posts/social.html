@@ -1,0 +1,330 @@
+<title>Posts zum Doom-Agenten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --ground: #F5F5F8;
+    --surface: #FFFFFF;
+    --surface-sunk: #F0F0F4;
+    --border: #DFDFE7;
+    --border-strong: #C6C6D2;
+    --text: #1A1A22;
+    --text-dim: #5C5C6B;
+    --text-faint: #85859A;
+    --green: #2F9B4E;
+    --blue: #1273B8;
+    --red: #C93636;
+    --amber: #9A6A0C;
+    --shadow: 0 1px 2px rgba(20, 20, 35, .06), 0 8px 24px -12px rgba(20, 20, 35, .14);
+    --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #121216;
+      --surface: #1A1A20;
+      --surface-sunk: #141419;
+      --border: #2A2A33;
+      --border-strong: #3A3A46;
+      --text: #EBEBF0;
+      --text-dim: #A0A0AE;
+      --text-faint: #7A7A8A;
+      --green: #78DC5A;
+      --blue: #3CB4FF;
+      --red: #F54646;
+      --amber: #F5BE3C;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 12px 32px -16px rgba(0, 0, 0, .7);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #121216;
+    --surface: #1A1A20;
+    --surface-sunk: #141419;
+    --border: #2A2A33;
+    --border-strong: #3A3A46;
+    --text: #EBEBF0;
+    --text-dim: #A0A0AE;
+    --text-faint: #7A7A8A;
+    --green: #78DC5A;
+    --blue: #3CB4FF;
+    --red: #F54646;
+    --amber: #F5BE3C;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 12px 32px -16px rgba(0, 0, 0, .7);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: clamp(32px, 6vw, 72px) clamp(20px, 4vw, 40px) 96px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(32px, 5vw, 52px);
+  }
+
+  .lede { display: flex; flex-direction: column; gap: 14px; max-width: 62ch; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0;
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(30px, 4.6vw, 44px);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+  .lede p { margin: 0; color: var(--text-dim); }
+
+  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  @media (max-width: 860px) { .cards { grid-template-columns: minmax(0, 1fr); } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .card[data-platform="linkedin"] { --accent: var(--blue); }
+  .card[data-platform="instagram"] { --accent: var(--amber); }
+
+  .card-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .card-title { display: flex; align-items: center; gap: 12px; }
+  .rail { width: 4px; height: 22px; background: var(--accent); border-radius: 1px; }
+  .card-head h2 { margin: 0; font-size: 19px; font-weight: 600; letter-spacing: -.01em; }
+
+  .copy {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--text);
+    background: var(--surface-sunk);
+    border: 1px solid var(--border-strong);
+    border-radius: 3px;
+    padding: 7px 13px;
+    cursor: pointer;
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .copy:hover { border-color: var(--accent); color: var(--accent); }
+  .copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .copy[data-state="done"] { color: var(--green); border-color: var(--green); }
+
+  .meter { display: flex; flex-direction: column; gap: 7px; }
+  .meter-track { height: 3px; background: var(--surface-sunk); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+  .meter-fill { height: 100%; background: var(--accent); }
+  .meter-label { margin: 0; font-family: var(--mono); font-size: 12px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+  .meter-label .count { color: var(--text-dim); }
+
+  .post {
+    margin: 0;
+    padding: 18px;
+    background: var(--surface-sunk);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: var(--sans);
+    font-size: 14.5px;
+    line-height: 1.62;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    color: var(--text);
+    max-height: 460px;
+    overflow-y: auto;
+  }
+  .note { margin: 0; font-size: 13px; color: var(--text-faint); }
+
+  .facts { display: flex; flex-direction: column; gap: 16px; }
+  .facts h2 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
+  .facts > p { margin: 0; color: var(--text-dim); max-width: 62ch; }
+  .table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; }
+  th, td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  th {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-weight: 500;
+    background: var(--surface-sunk);
+  }
+  td { font-size: 14px; color: var(--text-dim); }
+  .fact-value { font-family: var(--mono); color: var(--green); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .fact-source { font-family: var(--mono); font-size: 12.5px; color: var(--text-faint); white-space: nowrap; }
+
+  footer { border-top: 1px solid var(--border); padding-top: 20px; color: var(--text-faint); font-size: 13px; }
+  footer p { margin: 0 0 6px; }
+  footer strong { color: var(--text-dim); font-weight: 500; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <div class="lede">
+    <p class="eyebrow">Kopiervorlage</p>
+    <h1>Zwei Beiträge zum Doom-Agenten</h1>
+    <p>Beide Texte erzählen dieselbe Sache — dass so etwas heute an einem Nachmittag entsteht — in der Länge und Tonlage, die die jeweilige Plattform verträgt. Die Zahlen darin stammen alle aus den Messskripten des Projekts; die Tabelle unten sagt, aus welchem.</p>
+  </div>
+
+  <section class="cards">
+
+      <article class="card" data-platform="linkedin">
+        <header class="card-head">
+          <div class="card-title">
+            <span class="rail" aria-hidden="true"></span>
+            <h2>LinkedIn</h2>
+          </div>
+          <button class="copy" type="button" data-target="linkedin-text">Text kopieren</button>
+        </header>
+        <div class="meter">
+          <div class="meter-track"><div class="meter-fill" style="width:67.4%"></div></div>
+          <p class="meter-label"><span class="count">2.023</span> von 3.000 Zeichen</p>
+        </div>
+        <pre class="post" id="linkedin-text">Ein Vision-Language-Modell spielt Doom. Es erkennt Monster, zielt, schießt — und lässt die Menschen im Bild in Ruhe.
+
+Gebaut an einem Nachmittag. Ohne Trainingsdaten, ohne Fine-Tuning, ohne ein einziges selbst gelabeltes Bild.
+
+Die Teile:
+• ViZDoom — ein pip install, die Freedoom-Level bringt es gleich mit
+• NVIDIA LocateAnything-3B von HuggingFace, rund 7 GB, läuft auf einer RTX 3090
+• etwa 1.600 Zeilen Python
+
+Bemerkenswert ist nicht, dass es funktioniert. Bemerkenswert ist, was weggefallen ist.
+
+Vor ein paar Jahren wäre das ein Quartal Arbeit gewesen: Sprites sammeln, Bounding Boxes labeln, einen Detektor trainieren — und bei jeder neuen Gegnerart wieder von vorn. Heute ist &quot;worauf schießt der Agent&quot; eine Liste von Strings im Code. Wer statt Monstern Kisten auf einem Förderband finden will, ändert fünf Zeilen.
+
+Zwei Dinge waren dann doch nicht geschenkt.
+
+Erstens: Die Formulierung entscheidet.
+Mit &quot;monster, demon, imp, human, soldier&quot; hielt das Modell 56 % der Menschen fälschlich für Monster. Mit &quot;brown insect monster, pink fleshy worm creature, grey armored human soldier&quot; — also Beschreibungen statt Kategorien — waren es 6 %. Gleiche Bilder, gleiches Modell, andere Worte.
+
+Zweitens: Wahrnehmung ist nicht mehr das Problem. Der Umgang mit ihrer Unschärfe schon.
+Ohne Absicherung feuerte der Agent 19-mal, während ein Mensch in der Schusslinie stand. Mit zwei ganz klassischen Maßnahmen — einem gesperrten Schusskorridor und einem Vier-Bilder-Gedächtnis, das eine einmal erkannte Person kurz festhält — waren es null. Bei unveränderter Trefferquote auf die Monster.
+
+Beides habe ich nicht durch Nachdenken gefunden, sondern durch Messen. Die Doom-Engine kennt die exakte Bildschirmposition jedes Gegners. Also ließ sich jede Modellausgabe gegen die Wahrheit halten — und die Diskussion &quot;welcher Prompt ist besser&quot; wurde zu einer Tabelle.
+
+Das ist die eigentliche Verschiebung: Die Hürde ist nicht mehr das Modell. Sie ist zu wissen, wogegen man misst.
+
+#ComputerVision #VLM #MachineLearning #AI #Python</pre>
+        <p class="note">Video quer anhängen (llm_plays_doom.mp4). Die ersten zwei Zeilen stehen vor dem „mehr anzeigen“ — dort sitzt der Haken.</p>
+      </article>
+      <article class="card" data-platform="instagram">
+        <header class="card-head">
+          <div class="card-title">
+            <span class="rail" aria-hidden="true"></span>
+            <h2>Instagram</h2>
+          </div>
+          <button class="copy" type="button" data-target="instagram-text">Text kopieren</button>
+        </header>
+        <div class="meter">
+          <div class="meter-track"><div class="meter-fill" style="width:40.9%"></div></div>
+          <p class="meter-label"><span class="count">899</span> von 2.200 Zeichen</p>
+        </div>
+        <pre class="post" id="instagram-text">Ein KI-Modell spielt Doom — und weiß, auf wen es NICHT schießen darf.
+
+Grüne Box: Monster. Blaue Box: Mensch. Steht ein Mensch in der Schusslinie, geht der Finger vom Abzug.
+
+Gebaut an einem Nachmittag:
+→ ViZDoom per pip installiert
+→ NVIDIA LocateAnything-3B von HuggingFace geladen
+→ 1.600 Zeilen Python
+
+Kein Training. Keine gelabelten Bilder. Was der Agent für einen Gegner hält, steht als Textzeile im Code.
+
+Das Überraschende: Die Wortwahl im Prompt entschied über alles.
+
+&quot;monster, demon, imp&quot; → 56 % der Menschen als Monster erkannt
+&quot;brown insect monster, grey armored human soldier&quot; → 6 %
+
+Gleiche Bilder. Gleiches Modell. Andere Worte.
+
+Und ohne Sicherung feuerte der Agent 19-mal auf einen Menschen in der Schusslinie. Mit gesperrtem Schusskorridor und Kurzzeitgedächtnis: null.
+
+#ai #computervision #doom #machinelearning #gamedev #vlm #python #retrogaming #künstlicheintelligenz #nvidia</pre>
+        <p class="note">Als Reel mit doom_short_1080x1920.mp4. Nur die erste Zeile ist in der Vorschau sichtbar.</p>
+      </article>
+  </section>
+
+  <section class="facts">
+    <h2>Die Zahlen und wo sie herkommen</h2>
+    <p>Vor dem Posten kurz gegenlesen: Jede Behauptung in den Texten lässt sich auf einen Lauf zurückführen. Die Doom-Engine liefert über den Labels-Buffer die exakte Bildschirmposition jedes Akteurs, gegen die gemessen wurde.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th scope="col">Wert</th><th scope="col">Wofür er steht</th><th scope="col">Quelle</th></tr>
+        </thead>
+        <tbody>
+<tr><td class="fact-value">56 %</td><td>Menschen als Monster gelabelt, Prompt „monster, demon, imp, human, soldier“</td><td class="fact-source">src/eval_detector.py</td></tr>
+<tr><td class="fact-value">6 %</td><td>dasselbe mit beschreibenden Klassen (Default-Prompt)</td><td class="fact-source">src/eval_detector.py</td></tr>
+<tr><td class="fact-value">19 → 0</td><td>Schüsse mit Mensch im Schusskorridor, ohne bzw. mit Sicherungen</td><td class="fact-source">src/eval_policy.py</td></tr>
+<tr><td class="fact-value">7/7</td><td>Monster erlegt — in allen drei Sicherungsvarianten gleich</td><td class="fact-source">src/eval_policy.py</td></tr>
+<tr><td class="fact-value">1.631</td><td>Zeilen Python über neun Dateien</td><td class="fact-source">wc -l src/*.py</td></tr>
+<tr><td class="fact-value">~7 GB</td><td>LocateAnything-3B in bf16, läuft auf einer RTX 3090</td><td class="fact-source">nvidia/LocateAnything-3B</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Anhänge:</strong> LinkedIn → <code>out/llm_plays_doom.mp4</code> (980×480, 117 s) · Instagram → <code>out/doom_short_1080x1920.mp4</code> (55 s, 9:16)</p>
+    <p><strong>Vor dem Posten bedenken:</strong> LocateAnything-3B steht unter der NVIDIA License für nicht-kommerzielle Forschung. Für einen Firmenaccount ist der Hinweis auf den Forschungscharakter sinnvoll.</p>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll(".copy").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var source = document.getElementById(button.dataset.target);
+      var text = source.textContent;
+      var label = button.textContent;
+
+      function done(message) {
+        button.textContent = message;
+        button.dataset.state = "done";
+        setTimeout(function () {
+          button.textContent = label;
+          delete button.dataset.state;
+        }, 1800);
+      }
+
+      function fallback() {
+        // Die Zwischenablage ist in manchen eingebetteten Ansichten gesperrt.
+        // Dann wird der Text markiert, damit Strg+C greift.
+        var range = document.createRange();
+        range.selectNodeContents(source);
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        try {
+          if (document.execCommand("copy")) { done("Kopiert"); return; }
+        } catch (error) { /* markiert bleibt markiert */ }
+        button.textContent = "Markiert — Strg+C";
+        setTimeout(function () { button.textContent = label; }, 2400);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done("Kopiert"); }, fallback);
+      } else {
+        fallback();
+      }
+    });
+  });
+</script>

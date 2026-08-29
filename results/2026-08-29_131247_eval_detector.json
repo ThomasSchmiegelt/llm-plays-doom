@@ -1,0 +1,55 @@
+{
+  "tool": "eval_detector",
+  "recorded_at": "2026-08-29_131247",
+  "unix_time": 1788001967,
+  "provenance": "backfilled",
+  "params": {
+    "scenario": "arena_mixed",
+    "frames": 18,
+    "iou": 0.35,
+    "resolution": "640x480",
+    "monsters": 7,
+    "humans": 5
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "note": "Codestand nicht rekonstruierbar (nachgetragen)"
+  },
+  "notes": "Zweite Ausbaustufe: Monster gegen Menschen. Die letzte Spalte ist die gefaehrliche - ein Mensch, den das Modell fuer ein Monster haelt.",
+  "rows": [
+    {
+      "classes": "brown insect monster / pink fleshy worm creature / orange flying skull / blue shelled monster / grey armored human soldier",
+      "monster_recall": 0.71,
+      "human_recall": 0.69,
+      "human_as_monster": 0.06,
+      "ms": 1565,
+      "chosen": true
+    },
+    {
+      "classes": "brown insect monster / pink fleshy creature / floating skull / soldier in grey armor",
+      "monster_recall": 0.83,
+      "human_recall": 0.56,
+      "human_as_monster": 0.12,
+      "ms": 1654
+    },
+    {
+      "classes": "monster / demon / imp / human / soldier",
+      "monster_recall": 0.86,
+      "human_recall": 0.19,
+      "human_as_monster": 0.56,
+      "ms": 2065
+    },
+    {
+      "classes": "monster / demon / alien creature / human soldier / man with helmet",
+      "monster_recall": 0.71,
+      "human_recall": 0.38,
+      "human_as_monster": 0.38,
+      "ms": 2086
+    }
+  ]
+}

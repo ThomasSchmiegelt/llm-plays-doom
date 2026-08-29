@@ -1,0 +1,21 @@
+Ein KI-Modell spielt Doom — und weiß, auf wen es NICHT schießen darf.
+
+Grüne Box: Monster. Blaue Box: Mensch. Steht ein Mensch in der Schusslinie, geht der Finger vom Abzug.
+
+Gebaut an einem Nachmittag:
+→ ViZDoom per pip installiert
+→ NVIDIA LocateAnything-3B von HuggingFace geladen
+→ 1.600 Zeilen Python
+
+Kein Training. Keine gelabelten Bilder. Was der Agent für einen Gegner hält, steht als Textzeile im Code.
+
+Das Überraschende: Die Wortwahl im Prompt entschied über alles.
+
+"monster, demon, imp" → 56 % der Menschen als Monster erkannt
+"brown insect monster, grey armored human soldier" → 6 %
+
+Gleiche Bilder. Gleiches Modell. Andere Worte.
+
+Und ohne Sicherung feuerte der Agent 19-mal auf einen Menschen in der Schusslinie. Mit gesperrtem Schusskorridor und Kurzzeitgedächtnis: null.
+
+#ai #computervision #doom #machinelearning #gamedev #vlm #python #retrogaming #künstlicheintelligenz #nvidia

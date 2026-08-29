@@ -1,0 +1,18 @@
+# Torch passend zur CUDA-Version installieren, siehe pytorch.org
+torch
+torchvision
+transformers==4.57.1
+opencv-python==4.11.0.86
+numpy<2
+Pillow==11.1.0
+accelerate
+safetensors
+sentencepiece
+einops
+huggingface_hub
+# von der Remote-Code-Pruefung von LocateAnything verlangt, zur Laufzeit ungenutzt
+peft
+decord
+lmdb
+# Spiel
+vizdoom==1.3.0

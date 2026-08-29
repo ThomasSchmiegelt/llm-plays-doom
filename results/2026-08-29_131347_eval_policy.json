@@ -1,0 +1,47 @@
+{
+  "tool": "eval_policy",
+  "recorded_at": "2026-08-29_131347",
+  "unix_time": 1788002027,
+  "provenance": "backfilled",
+  "params": {
+    "steps": 150,
+    "seed": 21,
+    "monsters": 7,
+    "humans": 5,
+    "tics": 4,
+    "run_date": "26.08"
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "note": "Codestand nicht rekonstruierbar (nachgetragen)"
+  },
+  "notes": "Erster Lauf. Der spaetere vom 29.08. weicht ab - kein Regress, sondern Sampling beim Dekodieren.",
+  "rows": [
+    {
+      "guard": "ohne",
+      "shots": 95,
+      "holds": 0,
+      "friendly_fire": 19,
+      "monsters": "7/7"
+    },
+    {
+      "guard": "korridor",
+      "shots": 10,
+      "holds": 60,
+      "friendly_fire": 1,
+      "monsters": "7/7"
+    },
+    {
+      "guard": "korridor+gedaechtnis",
+      "shots": 12,
+      "holds": 22,
+      "friendly_fire": 0,
+      "monsters": "7/7"
+    }
+  ]
+}

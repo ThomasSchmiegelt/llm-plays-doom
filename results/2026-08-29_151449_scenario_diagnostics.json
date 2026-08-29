@@ -1,0 +1,58 @@
+{
+  "tool": "scenario_diagnostics",
+  "recorded_at": "2026-08-29_151449",
+  "unix_time": 1788009289,
+  "provenance": "measured",
+  "params": {
+    "scenario": "arena_mixed",
+    "map": "deathmatch.wad map01"
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "1e6ef3c13cb3",
+      "classifier.py": "aa06d7cd2b34",
+      "detector.py": "ad80f6558f76",
+      "env.py": "70232052d358",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "08525e1f61ab",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "97200a4a3bea",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "5307f5a6c9b9",
+      "vertical.py": "e7ea1a2c4de3"
+    },
+    "combined": "2629e2305549"
+  },
+  "notes": "Warum beschworene Monster in der Arena oft passiv bleiben. Erste Vermutung (-nomonsters schaltet die KI ab) war falsch und wurde zurueckgenommen: ohne das Flag teleportiert die Karte eigene Monster ein, die den Schaden verursachten. Wahrscheinlichere Ursache ist die Sichtlinie.",
+  "rows": [
+    {
+      "befund": "mit -nomonsters, Imp auf 200 Einheiten, 34 s",
+      "angriff": false
+    },
+    {
+      "befund": "ohne -nomonsters, Health 100 -> -19",
+      "angriff": true,
+      "anmerkung": "Schaden von eingeteleportierten Kartenmonstern, nicht vom Imp"
+    },
+    {
+      "befund": "Karte ohne Flag nach 10 Tics",
+      "eigene_monster": 0,
+      "anmerkung": "zu frueh geprueft - ShotgunGuy/Demon/Zombieman kommen spaeter"
+    },
+    {
+      "befund": "Arachnotron per warp gesetzt, 700 Tics",
+      "in_objects": true,
+      "in_labels": false,
+      "anmerkung": "nie gesehen, daher nie ausgeloest"
+    }
+  ]
+}

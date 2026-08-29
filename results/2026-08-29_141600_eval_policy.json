@@ -1,0 +1,79 @@
+{
+  "tool": "eval_policy",
+  "recorded_at": "2026-08-29_141600",
+  "unix_time": 1788005760,
+  "provenance": "measured",
+  "params": {
+    "steps": 150,
+    "seed": 21,
+    "monsters": 7,
+    "humans": 5,
+    "tics": 4,
+    "tolerance": 6.0,
+    "burst": 0
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "ae96ac92ef5a",
+      "classifier.py": "aa06d7cd2b34",
+      "detector.py": "ad80f6558f76",
+      "env.py": "a8025b160e29",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "a90266ab2918",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "08525e1f61ab",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "97200a4a3bea",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "5307f5a6c9b9",
+      "vertical.py": "e7ea1a2c4de3"
+    },
+    "combined": "42c07f3e09d8"
+  },
+  "notes": "Wirkung der Sicherungen gegen Eigenbeschuss.",
+  "rows": [
+    {
+      "guard": "ohne",
+      "shots": 60,
+      "holds": 0,
+      "friendly_fire": 23,
+      "ammo": 70,
+      "ammo_per_kill": 10.0,
+      "monsters_killed": 7,
+      "humans_lost": 5,
+      "monsters": 7,
+      "humans": 5
+    },
+    {
+      "guard": "korridor",
+      "shots": 3,
+      "holds": 70,
+      "friendly_fire": 0,
+      "ammo": 6,
+      "ammo_per_kill": 0.9,
+      "monsters_killed": 7,
+      "humans_lost": 4,
+      "monsters": 7,
+      "humans": 5
+    },
+    {
+      "guard": "korridor+gedaechtnis",
+      "shots": 3,
+      "holds": 70,
+      "friendly_fire": 0,
+      "ammo": 6,
+      "ammo_per_kill": 0.9,
+      "monsters_killed": 7,
+      "humans_lost": 4,
+      "monsters": 7,
+      "humans": 5
+    }
+  ]
+}

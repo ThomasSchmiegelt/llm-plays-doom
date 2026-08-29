@@ -1,0 +1,199 @@
+{
+  "tool": "eval_unknown",
+  "recorded_at": "2026-08-29_132721",
+  "unix_time": 1788002841,
+  "provenance": "measured",
+  "params": {
+    "repeats": 1,
+    "window": 5,
+    "seed": 11,
+    "hypotheses": [
+      "descriptive"
+    ],
+    "probe_mode": "crop",
+    "actors": [],
+    "hypothesis_set": "descriptive"
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "ae96ac92ef5a",
+      "classifier.py": "86bc554390a8",
+      "detector.py": "ad80f6558f76",
+      "env.py": "44f681336760",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "03f957b98032",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "08525e1f61ab",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "97200a4a3bea",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "5307f5a6c9b9",
+      "vertical.py": "e7ea1a2c4de3"
+    },
+    "combined": "c3c367ba3544"
+  },
+  "notes": "Einzelbild gegen Beobachtungsfenster, Haertefaelle (summonfriend) getrennt gefuehrt.",
+  "rows": [
+    {
+      "actor": "HellKnight",
+      "truth": "dangerous",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "100%",
+      "window": "100%",
+      "steps": "4.0",
+      "ms": "774",
+      "hard_case": false
+    },
+    {
+      "actor": "BaronOfHell",
+      "truth": "dangerous",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "100%",
+      "window": "100%",
+      "steps": "2.0",
+      "ms": "804",
+      "hard_case": false
+    },
+    {
+      "actor": "Revenant",
+      "truth": "dangerous",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "100%",
+      "window": "100%",
+      "steps": "3.0",
+      "ms": "808",
+      "hard_case": false
+    },
+    {
+      "actor": "Arachnotron",
+      "truth": "dangerous",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "0%",
+      "window": "0%",
+      "steps": "3.0",
+      "ms": "1400",
+      "hard_case": false
+    },
+    {
+      "actor": "ChaingunGuy",
+      "truth": "dangerous",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "100%",
+      "window": "100%",
+      "steps": "4.0",
+      "ms": "763",
+      "hard_case": false
+    },
+    {
+      "actor": "ShotgunGuy",
+      "truth": "dangerous",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "100%",
+      "window": "100%",
+      "steps": "3.0",
+      "ms": "775",
+      "hard_case": false
+    },
+    {
+      "actor": "ExplosiveBarrel",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "25%",
+      "window": "0%",
+      "steps": "4.0",
+      "ms": "779",
+      "hard_case": false
+    },
+    {
+      "actor": "TechPillar",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "0%",
+      "window": "0%",
+      "steps": "2.0",
+      "ms": "831",
+      "hard_case": false
+    },
+    {
+      "actor": "TallGreenColumn",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "100%",
+      "window": "100%",
+      "steps": "2.0",
+      "ms": "762",
+      "hard_case": false
+    },
+    {
+      "actor": "BurningBarrel",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "0%",
+      "window": "0%",
+      "steps": "5.0",
+      "ms": "776",
+      "hard_case": false
+    },
+    {
+      "actor": "EvilEye",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "0%",
+      "window": "0%",
+      "steps": "2.0",
+      "ms": "830",
+      "hard_case": false
+    },
+    {
+      "actor": "BigTree",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "67%",
+      "window": "100%",
+      "steps": "4.0",
+      "ms": "1111",
+      "hard_case": false
+    },
+    {
+      "actor": "HellKnight*",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "0%",
+      "window": "0%",
+      "steps": "4.0",
+      "ms": "794",
+      "hard_case": true
+    },
+    {
+      "actor": "Revenant*",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "0%",
+      "window": "0%",
+      "steps": "3.0",
+      "ms": "809",
+      "hard_case": true
+    }
+  ]
+}

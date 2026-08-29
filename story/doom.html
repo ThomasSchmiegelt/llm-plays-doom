@@ -1,0 +1,583 @@
+<title>Doom, gemessen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+  :root {
+    --ground: #F4F4F7;
+    --surface: #FFFFFF;
+    --sunk: #EDEDF2;
+    --line: #DCDCE4;
+    --line-soft: #E8E8EF;
+    --ink: #16161C;
+    --ink-dim: #55555F;
+    --ink-faint: #82828F;
+    --green: #2E8B48;
+    --red: #C7332F;
+    --blue: #1670AF;
+    --violet: #6E45A8;
+    --display: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0F0F13;
+      --surface: #191920;
+      --sunk: #14141A;
+      --line: #2B2B35;
+      --line-soft: #23232C;
+      --ink: #E8E8EE;
+      --ink-dim: #A2A2B0;
+      --ink-faint: #74748A;
+      --green: #78DC5A;
+      --red: #F54646;
+      --blue: #3CB4FF;
+      --violet: #B478E6;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0F0F13;
+    --surface: #191920;
+    --sunk: #14141A;
+    --line: #2B2B35;
+    --line-soft: #23232C;
+    --ink: #E8E8EE;
+    --ink-dim: #A2A2B0;
+    --ink-faint: #74748A;
+    --green: #78DC5A;
+    --red: #F54646;
+    --blue: #3CB4FF;
+    --violet: #B478E6;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.66;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: clamp(36px, 6vw, 80px) clamp(20px, 5vw, 48px) 120px;
+  }
+  .col { max-width: 64ch; }
+
+  /* ---------- Kopf ---------- */
+  .hero { display: flex; flex-direction: column; gap: 22px; margin-bottom: 18px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--violet); margin: 0;
+  }
+  h1 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(42px, 8vw, 82px); line-height: .98; letter-spacing: -.035em;
+    margin: 0; text-wrap: balance;
+  }
+  .standfirst { font-size: clamp(19px, 2.4vw, 23px); color: var(--ink-dim); margin: 0; max-width: 56ch; }
+
+  .ticker {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    margin: 40px 0 8px;
+  }
+  @media (max-width: 720px) { .ticker { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .tick { background: var(--surface); padding: 18px 16px; display: flex; flex-direction: column; gap: 5px; }
+  .tick b {
+    font-family: var(--mono); font-size: clamp(17px, 2.2vw, 21px); font-weight: 500;
+    letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+  }
+  .tick span { font-family: var(--display); font-size: 11.5px; letter-spacing: .07em;
+               text-transform: uppercase; color: var(--ink-faint); line-height: 1.35; }
+
+  /* ---------- Text ---------- */
+  h2 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(27px, 3.6vw, 36px); letter-spacing: -.022em; line-height: 1.12;
+    margin: 0 0 6px; text-wrap: balance;
+  }
+  h3 {
+    font-family: var(--display); font-weight: 600; font-size: 19px;
+    letter-spacing: -.01em; margin: 0 0 4px;
+  }
+  section { margin-top: clamp(56px, 8vw, 92px); }
+  section > .col > * + * { margin-top: 18px; }
+  p { margin: 0; }
+  .chapter-mark {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0 0 14px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--line);
+  }
+  strong { font-weight: 600; }
+  em { font-style: italic; color: var(--ink); }
+  code {
+    font-family: var(--mono); font-size: .84em;
+    background: var(--sunk); border: 1px solid var(--line-soft);
+    padding: 1px 5px; border-radius: 2px;
+  }
+  a { color: var(--violet); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+
+  /* ---------- Das gemessene Delta ---------- */
+  .delta {
+    margin: 34px 0; padding: 24px 26px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-left: 4px solid var(--tone, var(--violet));
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .delta-pair {
+    display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+  }
+  .delta-pair .from { font-size: clamp(26px, 4vw, 36px); color: var(--ink-faint); text-decoration: line-through;
+                      text-decoration-thickness: 1px; }
+  .delta-pair .arrow { font-size: 20px; color: var(--ink-faint); }
+  .delta-pair .to { font-size: clamp(34px, 5.5vw, 50px); color: var(--tone, var(--violet)); font-weight: 500;
+                    letter-spacing: -.03em; }
+  .delta figcaption { font-size: 16px; color: var(--ink-dim); max-width: 58ch; }
+  .delta[data-tone="green"] { --tone: var(--green); }
+  .delta[data-tone="red"] { --tone: var(--red); }
+  .delta[data-tone="blue"] { --tone: var(--blue); }
+  .delta[data-tone="violet"] { --tone: var(--violet); }
+
+  /* ---------- Tabellen ---------- */
+  .scroll { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); margin: 26px 0; }
+  table { border-collapse: collapse; width: 100%; min-width: 520px; }
+  caption {
+    caption-side: bottom; text-align: left; padding: 10px 16px;
+    font-size: 14px; color: var(--ink-faint); border-top: 1px solid var(--line-soft);
+  }
+  th, td { text-align: left; padding: 10px 16px; border-bottom: 1px solid var(--line-soft); }
+  tbody tr:last-child td { border-bottom: none; }
+  th {
+    font-family: var(--display); font-size: 11.5px; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint);
+    background: var(--sunk);
+  }
+  td { font-size: 15.5px; color: var(--ink-dim); }
+  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); text-align: right; }
+  td.good { color: var(--green); }
+  td.bad { color: var(--red); }
+  tr.pick td { background: var(--sunk); color: var(--ink); }
+  tr.pick td:first-child::after {
+    content: "gewählt"; font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--violet);
+    margin-left: 10px; white-space: nowrap;
+  }
+
+  /* ---------- Notiz / Beitrag ---------- */
+  .note {
+    margin: 30px 0; padding: 20px 24px; background: var(--sunk);
+    border: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px;
+  }
+  .note .who {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--violet);
+  }
+  .note p { font-size: 16.5px; color: var(--ink-dim); }
+
+  /* ---------- Technik ---------- */
+  .specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px;
+           background: var(--line); border: 1px solid var(--line); margin: 26px 0; }
+  .spec { background: var(--surface); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
+  .spec dt { font-family: var(--display); font-size: 11.5px; letter-spacing: .08em;
+             text-transform: uppercase; color: var(--ink-faint); }
+  .spec dd { margin: 0; font-size: 15.5px; color: var(--ink); }
+  .spec dd small { display: block; color: var(--ink-faint); font-size: 13.5px; margin-top: 3px; }
+
+  .flow {
+    font-family: var(--mono); font-size: 13.5px; line-height: 1.85;
+    background: var(--surface); border: 1px solid var(--line);
+    padding: 20px 22px; margin: 26px 0; overflow-x: auto; white-space: pre;
+    color: var(--ink-dim);
+  }
+  .flow b { color: var(--ink); font-weight: 500; }
+
+  /* ---------- Ausblick ---------- */
+  .open { display: flex; flex-direction: column; gap: 1px; background: var(--line);
+          border: 1px solid var(--line); margin: 26px 0; }
+  .open article { background: var(--surface); padding: 20px 24px; display: flex; flex-direction: column; gap: 7px; }
+  .open h3 { margin: 0; }
+  .open p { font-size: 16px; color: var(--ink-dim); }
+  .open .tag {
+    align-self: flex-start; font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px;
+    border: 1px solid var(--line); color: var(--ink-faint);
+  }
+
+  footer { margin-top: 88px; padding-top: 22px; border-top: 1px solid var(--line);
+           font-size: 15px; color: var(--ink-faint); display: flex; flex-direction: column; gap: 8px; }
+  footer strong { color: var(--ink-dim); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="page">
+
+  <header class="hero">
+    <p class="eyebrow">Werkbericht · ein Nachmittag, dann drei Ausbaustufen</p>
+    <h1>Doom, gemessen</h1>
+    <p class="standfirst">Ein Vision-Language-Modell spielt Doom, verschont die Menschen im Bild und
+    entscheidet bei Wesen, die es nicht kennt, ob sie gefährlich sind. Jede Stufe drehte sich
+    an einer Zahl, die sich messen ließ.</p>
+  </header>
+
+  <div class="ticker">
+    <div class="tick"><b>97,1 %</b><span>Treffer auf Doom-Sprites</span></div>
+    <div class="tick"><b>56 % → 6 %</b><span>Menschen für Monster gehalten</span></div>
+    <div class="tick"><b>19 → 0</b><span>Schüsse auf Menschen</span></div>
+    <div class="tick"><b>7 → 10 von 14</b><span>Unbekanntes richtig eingeordnet</span></div>
+  </div>
+
+  <!-- ================= 1 ================= -->
+  <section>
+    <div class="col">
+      <p class="chapter-mark">Erste Stufe · Zielen und schießen</p>
+      <h2>Warum das Spiel stillsteht, während das Modell denkt</h2>
+      <p>Der Auftrag war schlicht: Doom automatisch spielen lassen, mit
+      <a href="https://research.nvidia.com/labs/lpr/locate-anything/">NVIDIA LocateAnything</a> als Augen.
+      Die erste Entscheidung war die folgenreichste — <strong>ViZDoom statt GZDoom</strong>.</p>
+      <p>GZDoom hätte Bildschirmabgriff und gefälschte Tastendrücke gebraucht, und das Spiel wäre
+      weitergelaufen, während das Modell rechnet. ViZDoom gibt den Bildpuffer direkt heraus und nimmt
+      Aktionen über eine Schnittstelle entgegen. Vor allem: <em>es läuft nur weiter, wenn der Agent
+      handelt.</em> Damit hängt die Demo nicht an der Rechenzeit — das Modell darf sich Zeit lassen,
+      die Welt wartet.</p>
+      <p>Der zweite Gewinn kam ungeplant. ViZDoom liefert über den Labels-Puffer die <strong>exakte
+      Bildschirmposition jedes Gegners</strong>. Damit war von der ersten Stunde an jede Modellausgabe
+      gegen die Wahrheit prüfbar. Fast alles, was danach kam, hängt daran.</p>
+    </div>
+
+    <figure class="delta" data-tone="green">
+      <div class="delta-pair"><span class="to">278, 232, 296, 261</span></div>
+      <figcaption>Die erste Erkennung eines Doom-Imps. Die Engine sagte 278, 233, 295, 261 —
+      das Modell traf ein grob gerastertes Sprite aus den Neunzigern auf ein bis zwei Pixel genau.</figcaption>
+    </figure>
+
+    <div class="col">
+      <h3>Zwei Eigenheiten, die man kennen muss</h3>
+      <p>Bei <strong>einer einzigen Klasse</strong> im Prompt gerät das Modell auf Doom-Bildern in eine
+      Wiederholungsschleife und gibt dieselbe Box bis zum Token-Limit aus: 4,7 Sekunden statt 465
+      Millisekunden, ohne besseres Ergebnis. Ab drei Klassen terminiert es sauber. Und
+      <code>model.generate()</code> verlangt zwingend <code>use_cache=True</code> — im Beispiel der
+      Modellkarte fehlt das Argument, der Aufruf bricht ohne es ab.</p>
+      <p>Aus der Engine kam eine dritte: das Dreh-Delta <code>TURN_LEFT_RIGHT_DELTA</code> wirkt
+      <strong>pro Tic</strong>, nicht pro Aktion. Ein Wert von 10 über 4 Tics dreht 40 Grad. Der erste
+      Agent drehte sich deshalb im Kreis, ohne dass sich am Bild etwas änderte — 45 Grad mal 8 Tics
+      sind eine volle Umdrehung.</p>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <caption>Erkennung gegen die Engine-Wahrheit, <code>defend_the_center</code>, RTX 3090, 25 Bilder je Zeile</caption>
+        <thead><tr><th scope="col">Prompt-Klassen</th><th scope="col">Auflösung</th>
+          <th scope="col">Recall</th><th scope="col">Precision</th><th scope="col">Latenz</th></tr></thead>
+        <tbody>
+          <tr class="pick"><td>monster, soldier, demon, imp, zombie</td><td>640×480</td>
+            <td class="num good">97,1 %</td><td class="num good">89,2 %</td><td class="num">603 ms</td></tr>
+          <tr><td>monster, enemy soldier, demon</td><td>640×480</td>
+            <td class="num">88,2 %</td><td class="num">88,2 %</td><td class="num">451 ms</td></tr>
+          <tr><td>monster, demon</td><td>640×480</td>
+            <td class="num">97,1 %</td><td class="num bad">67,3 %</td><td class="num bad">3585 ms</td></tr>
+          <tr><td>monster, soldier, demon, imp, zombie</td><td>320×240</td>
+            <td class="num">87,9 %</td><td class="num">85,3 %</td><td class="num">609 ms</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <p>Kleinere Auflösung bringt nichts — sie kostet Recall und ist kaum schneller, weil das Modell
+      intern ohnehin skaliert.</p>
+    </div>
+  </section>
+
+  <!-- ================= 2 ================= -->
+  <section>
+    <div class="col">
+      <p class="chapter-mark">Zweite Stufe · Monster und Menschen</p>
+      <h2>Die Wortwahl entschied über alles</h2>
+      <p>Nächste Anforderung: In der Arena stehen jetzt auch Menschen. Auf die darf nicht geschossen
+      werden. Beide Gruppen gehen in <em>denselben</em> Prompt — die Trennung passiert allein über das
+      Label, das das Modell zurückgibt.</p>
+      <p>Der erste Versuch benutzte, was naheliegt: Kategorienamen. Das Ergebnis war ein Desaster,
+      und zwar eines, das man ohne Messung nie bemerkt hätte.</p>
+    </div>
+
+    <figure class="delta" data-tone="green">
+      <div class="delta-pair"><span class="from">56 %</span><span class="arrow">→</span><span class="to">6 %</span></div>
+      <figcaption>Anteil der Marines, die das Modell fälschlich für Monster hielt.
+      Links <code>monster, demon, imp, human, soldier</code>. Rechts
+      <code>brown insect monster, pink fleshy worm creature, grey armored human soldier</code>.
+      Gleiche Bilder, gleiches Modell, andere Worte.</figcaption>
+    </figure>
+
+    <div class="col">
+      <p>Freedooms Sprites sehen nicht aus wie klassische Doom-Dämonen — sie wirken mechanisch. Wer
+      „imp" schreibt, bekommt Zufall. Wer beschreibt, was auf dem Bildschirm steht, bekommt eine
+      Erkennung. <strong>Beschreibungen schlagen Kategorien</strong>, und das ist keine Stilfrage,
+      sondern der Unterschied zwischen einem Agenten, der Zivilisten erschießt, und einem, der es
+      nicht tut.</p>
+
+      <h3>Sicherheit hängt nicht an einem Bild</h3>
+      <p>6 % Fehlerquote heißt trotzdem: gelegentlich sieht der Agent den Menschen nicht. Ein
+      Schutzmechanismus darf davon nicht abhängen. Also kamen zwei Sicherungen dazu, beide klassische
+      Technik, kein Modell:</p>
+      <p><strong>Der Schusskorridor.</strong> Steht ein als Mensch erkanntes Objekt in dem Streifen um
+      das Fadenkreuz, in dem die Schüsse einschlagen, wird nicht gefeuert — auch wenn dahinter ein
+      gültiges Ziel steht.</p>
+      <p><strong>Das Kurzzeitgedächtnis.</strong> Jede Menschen-Box bleibt vier Schritte gültig. Weil
+      der ausgeführte Drehwinkel bekannt ist, lässt sich die Verschiebung im Bild exakt herausrechnen:
+      eine Drehung nach rechts schiebt alles nach links. So überbrückt der Schutz einen Aussetzer des
+      Detektors.</p>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <caption>150 Schritte je Zeile, gleiche Startaufstellung. Eigenbeschuss = gefeuert, während laut Engine ein Mensch im Korridor stand</caption>
+        <thead><tr><th scope="col">Sicherung</th><th scope="col">Schüsse</th>
+          <th scope="col">gesperrt</th><th scope="col">Eigenbeschuss</th><th scope="col">Monster erlegt</th></tr></thead>
+        <tbody>
+          <tr><td>ohne</td><td class="num">95</td><td class="num">0</td><td class="num bad">19</td><td class="num">7/7</td></tr>
+          <tr><td>Label + Schusskorridor</td><td class="num">10</td><td class="num">60</td><td class="num">1</td><td class="num">7/7</td></tr>
+          <tr class="pick"><td>+ Kurzzeitgedächtnis</td><td class="num">12</td><td class="num">22</td><td class="num good">0</td><td class="num">7/7</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <p>Die wichtigste Spalte ist die letzte: <strong>alle drei Varianten räumen die Arena
+      vollständig leer.</strong> Die Sicherungen kosten Vorsicht, nicht Wirksamkeit — der abgesicherte
+      Agent braucht länger, erreicht aber dasselbe.</p>
+    </div>
+  </section>
+
+  <!-- ================= 3 ================= -->
+  <section>
+    <div class="col">
+      <p class="chapter-mark">Dritte Stufe · Das Unbekannte</p>
+      <h2>Was tut ein Agent mit etwas, für das er kein Wort hat?</h2>
+      <p>Bis hierhin kannte der Agent fünf feste Beschreibungen. Alles andere existierte für ihn
+      nicht. Die nächste Anforderung drehte das um: <em>Es tauchen Wesen auf, die er nicht kennt. Er
+      soll sie beobachten und dann einordnen — gefährlich oder harmlos.</em></p>
+
+      <h3>Erkennen, dass da überhaupt etwas ist</h3>
+      <p>Der Prompt bekam eine absichtlich weite Klasse: <code>any creature or figure</code>. Eine Box
+      dieser Klasse, die keine Box einer spezifischen Klasse überlappt, ist ein Unbekanntes. Die
+      Engine-Labels dürfen dafür nicht herangezogen werden — sonst misst sich die Demo selbst.</p>
+
+      <h3>Einen Lokalisierer als Klassifikator benutzen</h3>
+      <p>LocateAnything beschriftet nicht, es lokalisiert. Trotzdem lässt es sich befragen: Man bietet
+      ihm mehrere Beschreibungen an und schaut, auf welche es eine Box an die Stelle des verfolgten
+      Wesens legt. Ein einzelnes Bild reicht dafür nicht — die Antwort schwankt. Also wird über ein
+      Beobachtungsfenster abgestimmt.</p>
+      <p>Und hier ging zunächst einiges schief. Der Ausschnitt schlägt das Vollbild deutlich
+      (ein Baum: 10 von 10 richtig gegen 0 von 10). Objekte unter etwa 1400 Pixeln Boxfläche liefern
+      überhaupt keine Antwort, was einen eigenen, näheren Spawn-Radius nötig machte. Und der Versuch,
+      dem Modell mit Ausweichbeschreibungen wie <code>a brick wall</code> eine Fluchtmöglichkeit zu
+      geben, verschlechterte alles auf 6 von 14 — im Ausschnitt zieht die Wand jede Aufmerksamkeit
+      an sich.</p>
+    </div>
+
+    <div class="note">
+      <p class="who">Einwurf aus dem Gespräch</p>
+      <p>„Zuerst gab es zwei Möglichkeiten und nun drei. Vielleicht bräuchte man nun eine Gewichtung
+      wie bei einem Paarvergleich."</p>
+    </div>
+
+    <div class="col">
+      <p>Das traf den Kern. Das Problem war nicht die Auswahl der Wörter, sondern dass <strong>alle
+      Beschreibungen in einem einzigen Vergleich gegeneinander antraten</strong> — und manche
+      gewannen unabhängig vom Bildinhalt. Eine Steinsäule wurde sechsmal von sechs als
+      <code>silver armored mechanical soldier</code> gemeldet.</p>
+      <p>Ein vollständiger Paarvergleich über acht Beschreibungen wären 28 Abfragen pro Bild:
+      unbezahlbar. Aber das Beobachtungsfenster <em>ist</em> bereits eine Wiederholung. Also tritt pro
+      Bild nur ein ausgewogenes Quartett an — zwei gefährliche gegen zwei harmlose —, und das Feld
+      wechselt von Bild zu Bild. Über sechs Beobachtungen ergibt das ein Turnier mit wechselnden
+      Paarungen, ohne einen einzigen zusätzlichen Modellaufruf.</p>
+    </div>
+
+    <figure class="delta" data-tone="violet">
+      <div class="delta-pair"><span class="from">7 von 14</span><span class="arrow">→</span><span class="to">10 von 14</span></div>
+      <figcaption>Richtig eingeordnete unbekannte Wesen, allein durch das rotierende Turnier statt
+      eines einzigen Vergleichs. Ohne die zwei prinzipiell unlösbaren Fälle: 10 von 12.</figcaption>
+    </figure>
+
+    <div class="col">
+      <h3>Die Grenze, die bleibt</h3>
+      <p>Zwei Einträge im Testfeld sind mit <code>summonfriend</code> gesetzt: ein freundlicher Hell
+      Knight, der den Spieler nie angreift. Er sieht <strong>pixelgleich</strong> aus wie sein
+      feindlicher Zwilling. Rein visuelle Überwachung kann die beiden nicht trennen, und sie liegt
+      dort in jedem Hypothesensatz falsch. Das steht so im Ergebnis, statt kaschiert zu werden.</p>
+      <p>Umgekehrt gibt es die Falle in die andere Richtung: <code>EvilEye</code>, ein rot-weißes Auge
+      auf einem Sockel, sieht bedrohlich aus und ist Dekoration. Auch das geht zuverlässig daneben.</p>
+
+      <h3>Der Agent erweitert seinen eigenen Wortschatz</h3>
+      <p>Nach der Einordnung wandert die siegreiche Beschreibung in den Prompt — in die feindliche
+      oder die geschützte Gruppe. In einem aufgezeichneten Lauf wuchs er so von 7 auf 11 Klassen.
+      Der Nebeneffekt ist bezeichnend: danach wurde nichts mehr beobachtet. Einmal
+      <code>man in dark uniform holding a gun</code> gelernt, ist keine gepanzerte Figur mehr
+      unbekannt. Das Merkmal funktioniert — es macht sich nur selbst überflüssig.</p>
+    </div>
+  </section>
+
+  <!-- ================= 4 ================= -->
+  <section>
+    <div class="col">
+      <p class="chapter-mark">Was schiefging</p>
+      <h2>Drei Sackgassen, die etwas erklärten</h2>
+
+      <h3>Der Bewegungskanal</h3>
+      <p>Der Vorschlag lag nahe: Steinwände bewegen sich nicht, Kreaturen animieren sich. Ein
+      Pixelvergleich innerhalb der verfolgten Box, kostenlos, ohne Modellaufruf. Gemessen kam das
+      Gegenteil heraus — ein stillstehendes Fass „bewegte" sich stärker als ein Monster.</p>
+      <p>Zwei Ursachen. Erstens maß der Vergleich <strong>Boxinstabilität mal Texturdetail</strong>:
+      die Erkennungsbox wackelt um wenige Pixel, feingezeichnete Objekte wie ein Baum tasten dabei
+      jedes Mal anders ab, glatt schattierte Rüstungen nicht. Zweitens, und wichtiger: die Monster
+      standen bei exakt 0,00 über neun Ansichten — pixelidentisch. Einzeln gespawnte Monster sind
+      <em>nicht wach</em>, solange der Spieler nicht schießt. Der Prüfstand war der unrealistische
+      Teil, nicht die Idee.</p>
+      <p>Erledigt hat den Kanal aber ein Argument, kein Messfehler: <strong>eine Monsterstrategie
+      kann darin bestehen, stehen zu bleiben und aus der Distanz zu schießen.</strong> In Doom ist das
+      keine Theorie — ShotgunGuy und ChaingunGuy tun genau das. Bewegung trennt belebt von unbelebt,
+      nicht gefährlich von harmlos. Das sind zwei verschiedene Fragen.</p>
+
+      <h3>Zwei Modellinstanzen</h3>
+      <p>Auch naheliegend: eine zweite LocateAnything-Instanz eigens für Unbekanntes. Es sind
+      dieselben Gewichte — dasselbe Bild ergibt dieselbe Antwort, egal welche Instanz rechnet. Zwei
+      Kopien kosten 2 × 7 GB und bringen <strong>Parallelität, nicht Genauigkeit</strong>. Was
+      gemeint war, existiert längst: der Klassifikator ruft dasselbe Modell mit einem völlig anderen
+      Prompt auf einem anderen Bild auf.</p>
+
+      <h3>Eine Zahl, die schwankt</h3>
+      <p>Ein später Kontrolllauf lieferte 13 → 1 → 1 statt 19 → 1 → 0. Kein Regress: das Modell
+      dekodiert mit Sampling. Richtung und Größenordnung halten, die exakte Null war <em>ein</em>
+      Sample. Das gehört gesagt, weil die Zahl inzwischen in Veröffentlichungstexten steht.</p>
+    </div>
+  </section>
+
+  <!-- ================= 5 ================= -->
+  <section>
+    <div class="col">
+      <p class="chapter-mark">Vierte Stufe · Das Video</p>
+      <h2>Warum es ruckelte, obwohl 30 Bilder pro Sekunde herauskamen</h2>
+      <p>Für Shorts und Reels entstand eine zweite Ansicht in 1080 × 1920, mit allem Wesentlichen
+      oberhalb der Zone, die beide Plattformen mit ihrer eigenen Bedienoberfläche überdecken. Das
+      Ergebnis war flüssig kodiert und trotzdem sprunghaft.</p>
+      <p>Der Grund lag im Aufbau, nicht in der Bildrate. Der Agent entscheidet einmal, dann lief das
+      Spiel <strong>vier Tics am Stück</strong> weiter — 114 Millisekunden —, und die gesamte Drehung
+      passierte in einem einzigen Tic. Ein Bild je Entscheidung ergibt Sprünge, keine Bewegung.</p>
+      <p>Die Lösung nutzt, was ohnehin da war: Das Bild wird nach <em>jedem</em> Tic abgeholt und die
+      Drehung gleichmäßig darauf verteilt. Die Boxen wandern mit — über dieselbe
+      Eigenbewegungs-Korrektur, die schon das Schutz-Gedächtnis benutzt. Der zweite Übeltäter war
+      hausgemacht: Schlüsselmomente wurden mehrfach geschrieben, damit sie lesbar bleiben, und froren
+      dabei die Hälfte des Videos ein.</p>
+    </div>
+
+    <figure class="delta" data-tone="blue">
+      <div class="delta-pair"><span class="from">0,08</span><span class="arrow">→</span><span class="to">6,02</span></div>
+      <figcaption>Mittlere Bildänderung zwischen aufeinanderfolgenden Frames. Bei 0,08 ist die Hälfte
+      der Bilder ein Standbild und dazwischen springt es. Der Standbild-Anteil fiel von 45 % auf 30 %,
+      und 1479 Bilder laufen bei 30 fps ohne Resampling 1:1 durch.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ================= Technik ================= -->
+  <section>
+    <div class="col">
+      <p class="chapter-mark">Die Technik</p>
+      <h2>Was darunter steckt</h2>
+      <p>Kein Training, kein Fine-Tuning, kein einziges selbst gelabeltes Bild. Was der Agent für
+      einen Gegner hält, steht als Textzeile im Code.</p>
+    </div>
+
+    <div class="specs">
+      <div class="spec"><dt>Sehen</dt><dd>NVIDIA LocateAnything-3B
+        <small>MoonViT-SO-400M + Qwen2.5-3B, zu einem Checkpoint verschmolzen, 7,3 GB</small></dd></div>
+      <div class="spec"><dt>Spielen</dt><dd>ViZDoom 1.3.0
+        <small>mit den mitgelieferten Freedoom-WADs, Arena aus <code>deathmatch.wad</code></small></dd></div>
+      <div class="spec"><dt>Rechnen</dt><dd>RTX 3090, 24 GB
+        <small>bf16, rund 600 ms je Bild bei fünf Klassen</small></dd></div>
+      <div class="spec"><dt>Umfang</dt><dd>2856 Zeilen Python
+        <small>zwölf Dateien, davon drei reine Messwerkzeuge</small></dd></div>
+    </div>
+
+    <div class="flow">Ein Schritt des Agenten
+
+  <b>1</b>  Bild aus ViZDoom holen          <span>· das Spiel steht still</span>
+  <b>2</b>  LocateAnything befragen          <span>· ein Prompt, drei Gruppen:</span>
+                                     <span>  feindlich · geschützt · weit</span>
+  <b>3</b>  Unbekanntes aussondern           <span>· weite Box ohne spezifische Überlappung</span>
+  <b>4</b>  Spuren fortschreiben             <span>· Drehwinkel exakt herausgerechnet</span>
+  <b>5</b>  Unentschiedenes beobachten       <span>· ein Quartett Hypothesen je Bild</span>
+  <b>6</b>  Zielen, sperren oder feuern      <span>· Geometrie, keine Modellentscheidung</span>
+  <b>7</b>  Vier Tics weiterlaufen lassen    <span>· Drehung gleichmäßig verteilt</span></div>
+
+    <div class="col">
+      <p>Die Arbeitsteilung ist über alle Stufen dieselbe geblieben: <strong>Das Modell sieht. Die
+      Geometrie handelt. Die Engine urteilt über beide.</strong> Kein Schritt der Entscheidungslogik
+      ist gelernt, und genau deshalb ließ sich jede Änderung beziffern.</p>
+      <p>Drei Details der Engine kosteten je eine Sitzung: Das Dreh-Delta wirkt pro Tic.
+      <code>summon</code> setzt Akteure immer knapp vor den Spieler, für einen Ring auf Distanz muss
+      der Spieler selbst per <code>warp</code> dorthin und zurück. Und die Waffenwahl geht nur über
+      <code>Button.SELECT_WEAPON4</code> — die Konsolenbefehle <code>slot 4</code> und
+      <code>weapon chaingun</code> ignoriert ViZDoom stillschweigend.</p>
+    </div>
+  </section>
+
+  <!-- ================= Ausblick ================= -->
+  <section>
+    <div class="col">
+      <p class="chapter-mark">Ausblick</p>
+      <h2>Was als Nächstes ansteht</h2>
+      <p>Die offenen Punkte sind keine Restarbeiten, sondern Fragen, die der Aufbau selbst
+      aufgeworfen hat.</p>
+    </div>
+
+    <div class="open">
+      <article>
+        <span class="tag">Entwurfsentscheidung</span>
+        <h3>Ist „Mensch" neben „gefährlich" noch sinnvoll?</h3>
+        <p>Die beiden Achsen sind bisher vermischt. „Mensch" sagt, <em>was</em> etwas ist;
+        „gefährlich" sagt, <em>was es bedeutet</em>. In Doom fallen sie messbar auseinander:
+        ChaingunGuy und ShotgunGuy sind Menschen <em>und</em> feindlich. Zurzeit gewinnt „geschützt"
+        stillschweigend gegen „gefährlich". Das sollte eine ausgesprochene Einsatzregel werden —
+        <em>gefährlich, aber geschützt: Feuer verboten</em> — oder ganz entfallen.</p>
+      </article>
+      <article>
+        <span class="tag">Nächster Kanal</span>
+        <h3>Das Projektil statt der Bewegung</h3>
+        <p>Ein stehender Fernkämpfer verrät sich nicht durch Bewegung, aber durch das, was er
+        abfeuert. Ein Feuerball ist ein helles, eigenständiges Sprite — also eine weitere
+        Hypothesenklasse, <code>a glowing fireball</code>. Damit meldet LocateAnything den Angriff
+        selbst, bevor er trifft, und die Vorgabe „das Modell überwacht das" bleibt gewahrt.</p>
+      </article>
+      <article>
+        <span class="tag">Reproduzierbarkeit</span>
+        <h3>Gierige Dekodierung</h3>
+        <p>Solange das Modell mit Sampling dekodiert, schwankt jede veröffentlichte Zahl von Lauf zu
+        Lauf. Bei Temperatur null wird der gesamte Demonstrator wiederholbar — und die Messungen
+        werden Aussagen statt Stichproben.</p>
+      </article>
+      <article>
+        <span class="tag">Tempo</span>
+        <h3>Beobachten, während gehandelt wird</h3>
+        <p>Die Hypothesenabfrage läuft heute nach der Haupterkennung. Auf einer zweiten Instanz —
+        24 GB reichen für beide — liefe sie parallel. Das halbiert die Latenz in den
+        Beobachtungsphasen, ohne an der Genauigkeit etwas zu ändern.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Lizenz:</strong> LocateAnything-3B steht unter der NVIDIA License für akademische und
+    nicht-kommerzielle Forschung. ViZDoom (MIT) und die Freedoom-WADs (BSD) sind frei.</p>
+    <p><strong>Messwerkzeuge im Projekt:</strong> <code>eval_detector.py</code> (Erkennung je Typ),
+    <code>eval_policy.py</code> (Wirkung der Sicherungen), <code>eval_unknown.py</code>
+    (Einzelbild gegen Beobachtungsfenster) — alle gegen den Labels-Puffer der Engine.</p>
+  </footer>
+
+</div>

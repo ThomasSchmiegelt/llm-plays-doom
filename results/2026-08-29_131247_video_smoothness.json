@@ -1,0 +1,42 @@
+{
+  "tool": "video_smoothness",
+  "recorded_at": "2026-08-29_131247",
+  "unix_time": 1788001967,
+  "provenance": "backfilled",
+  "params": {
+    "source": "raw_unknown_v.mp4",
+    "steps": 230,
+    "tics": 4
+  },
+  "environment": {
+    "host": "GrosserRechner",
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "note": "Codestand nicht rekonstruierbar (nachgetragen)"
+  },
+  "notes": "Mittlere Bildaenderung zwischen aufeinanderfolgenden Frames im Hauptteil.",
+  "rows": [
+    {
+      "stage": "ein Bild je Entscheidung, Betonung 8x",
+      "median_delta": 0.08,
+      "still_share": 0.45,
+      "frames": 748
+    },
+    {
+      "stage": "Bild je Tic, Drehung verteilt",
+      "median_delta": 1.0,
+      "still_share": 0.45,
+      "frames": 2632
+    },
+    {
+      "stage": "+ Standzeit auf 4 Bilder begrenzt",
+      "median_delta": 6.02,
+      "still_share": 0.3,
+      "frames": 1479,
+      "chosen": true
+    }
+  ]
+}
