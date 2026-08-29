@@ -14,7 +14,6 @@ import hashlib
 import json
 import os
 import platform
-import socket
 import subprocess
 import time
 from datetime import datetime
@@ -43,7 +42,9 @@ def code_fingerprint() -> dict:
 
 
 def environment() -> dict:
-    env = {"host": socket.gethostname(), "python": platform.python_version()}
+    # Kein Rechnername: fuer die Reproduzierbarkeit zaehlen GPU, torch und
+    # Python, nicht wo die Kiste steht.
+    env = {"python": platform.python_version()}
     try:
         gpu = subprocess.run(["nvidia-smi", "--query-gpu=name,driver_version",
                               "--format=csv,noheader"],

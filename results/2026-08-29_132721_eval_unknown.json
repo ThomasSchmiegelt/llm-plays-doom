@@ -15,7 +15,6 @@
     "hypothesis_set": "descriptive"
   },
   "environment": {
-    "host": "GrosserRechner",
     "python": "3.12.3",
     "gpu": "NVIDIA GeForce RTX 3090, 595.84",
     "torch": "2.13.0+cu130"
