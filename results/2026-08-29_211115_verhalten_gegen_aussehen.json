@@ -1,0 +1,60 @@
+{
+  "tool": "verhalten_gegen_aussehen",
+  "recorded_at": "2026-08-29_211115",
+  "unix_time": 1788030675,
+  "provenance": "measured",
+  "params": {
+    "steps": 45,
+    "tics": 4,
+    "seed": 11,
+    "patience": 14,
+    "pool": "UNKNOWN_ROLES"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "6b9c6bdde365",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "e2cb291ea31f",
+      "detector.py": "ad80f6558f76",
+      "env.py": "3372a38706bf",
+      "eval_behaviour.py": "068fd02055cf",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "013ba389bbbf",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "377697e7bae4",
+      "vertical.py": "41352bdfad45"
+    },
+    "combined": "b0f71bcf1d88"
+  },
+  "notes": "Die Gegenprobe zum visuellen Klassifikator. Regel 'hat Schaden verursacht = gefaehrlich' liegt auf allen zehn Rollen richtig, das Aussehen auf den entscheidenden Faellen zu 0 %.\\n\\nDer Preis steht daneben: der erste Schaden kam im Mittel nach 7,3 Schritten (frueheste 2, spaeteste 11). Man weiss es erst, wenn es passiert ist - bei MarineBFG mit 100 Punkten auf einen Schlag.\\n\\nWichtig war die Reihenfolge: der Weckschuss muss NACH dem Spawnen fallen. Im ersten Anlauf lag er davor, kein einziger Akteur griff an, und die Messung ergab 6/10 aus lauter Nullen.\\n\\nIm Agenten ist das Aussehen jetzt nur noch ein vorlaeufiges Urteil - das Verhalten ueberstimmt es.",
+  "rows": [
+    {
+      "regel": "Schaden = gefaehrlich",
+      "richtig": 10,
+      "gesamt": 10,
+      "quote": 1.0
+    },
+    {
+      "regel": "Aussehen (summonfriend-Faelle)",
+      "richtig": 0,
+      "gesamt": 6,
+      "quote": 0.0
+    },
+    {
+      "kennzahl": "erster Schaden",
+      "mittel": 7.3,
+      "frueheste": 2,
+      "spaeteste": 11
+    }
+  ]
+}

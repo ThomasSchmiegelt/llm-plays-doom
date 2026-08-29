@@ -30,6 +30,7 @@ class Decision:
     progress: tuple[int, int] | None = None
     # Gesetzt genau in dem Schritt, in dem die Einordnung faellt.
     verdict: str | None = None
+    verdict_source: str | None = None   # "Aussehen" oder "Verhalten"
 
 
 class ProtectionMemory:
@@ -137,6 +138,10 @@ class AimBot:
         # Mit Unterbrechung wird der Agent bei mehreren Auftritten praktisch
         # handlungsunfaehig: gemessen 4 Schuss und 0 Treffer ueber 160 Schritte.
         self.observe_interrupts = True
+        # Wie lange ein Wesen unauffaellig bleiben muss, bis es als harmlos
+        # gilt. Gemessen: der erste Schaden kam im Mittel nach 7,3 Schritten,
+        # spaetestens nach 11 - darueber liegt die Geduld mit Reserve.
+        self.patience = 14
         self.shots = 0
         self.holds = 0
         self.observations = 0
@@ -258,13 +263,46 @@ class AimBot:
         """
         if frame is None or classifier is None or not self.respect_protection:
             return None
+        # Ein Urteil aus dem Aussehen ist vorlaeufig: es bleibt beobachtet,
+        # bis das Verhalten es bestaetigt oder widerlegt. Nur ein
+        # Verhaltensurteil ist endgueltig - es liegt zu 100 % richtig, das
+        # Aussehen auf den entscheidenden Faellen zu 0 %.
         pending = [t for t in self.unknowns.tracks()
-                   if t.verdict is None and t.fresh]
+                   if t.verdict_source != "Verhalten" and t.fresh]
         if not pending:
             return None
 
         # Immer nur eines auf einmal - das groesste, also naechste.
         focus = max(pending, key=lambda t: t.box.area)
+
+        # Das Verhalten schlaegt das Aussehen. Gemessen auf denselben zehn
+        # Rollen: die Regel "hat Schaden verursacht" liegt zu 100 % richtig,
+        # das Aussehen auf den entscheidenden Faellen zu 0 %. Drei Marines
+        # sehen gleich aus und sind Zivilist, Verbuendeter und Feind - da
+        # kann kein Bild helfen.
+        behaviour = self._behaviour_verdict(focus)
+        if behaviour is not None:
+            revised = focus.verdict is not None and focus.verdict != behaviour
+            focus.verdict = behaviour
+            focus.verdict_source = "Verhalten"
+            grund = ("hat Schaden verursacht" if behaviour == "dangerous"
+                     else f"greift seit {self.patience} Schritten nicht an")
+            if revised:
+                grund = "Aussehen widerlegt - " + grund
+            return self._remember(Decision(
+                0.0, False, False, False, None, "OBSERVING",
+                f"{grund}", [focus.box], observed=focus,
+                progress=classifier.progress(focus), verdict=behaviour,
+                verdict_source="Verhalten"))
+
+        if focus.verdict is not None:
+            # Aussehen hat schon geraten - jetzt nur noch zusehen.
+            return None if not self.observe_interrupts else self._remember(Decision(
+                0.0, False, False, False, None, "OBSERVING",
+                f"vorlaeufig {focus.verdict} - warte auf das Verhalten",
+                [focus.box], observed=focus,
+                progress=(len(focus.history), self.patience)))
+
         verdict = classifier.observe(frame, focus)
         self.observations += 1
 
@@ -274,6 +312,7 @@ class AimBot:
             return None
 
         if verdict is not None:
+            focus.verdict_source = "Aussehen"
             learned = self.learn(verdict.phrase, verdict.kind)
             word = "GEFAEHRLICH" if verdict.kind == "dangerous" else "HARMLOS"
             note = " - in den Prompt aufgenommen" if learned else ""
@@ -282,7 +321,8 @@ class AimBot:
                 f"'{verdict.phrase}' - {verdict.confidence:.0%} aus "
                 f"{verdict.probes} Proben{note}",
                 [focus.box], observed=focus,
-                progress=classifier.progress(focus), verdict=verdict.kind))
+                progress=classifier.progress(focus), verdict=verdict.kind,
+                verdict_source="Aussehen"))
 
         dx = focus.box.cx - self.width / 2
         turn_deg = dx * self.deg_per_pixel
@@ -291,6 +331,19 @@ class AimBot:
             turn_deg, False, False, False, None, "OBSERVING",
             f"unbekanntes Wesen - beobachte ({seen}/{window})",
             [focus.box], observed=focus, progress=(seen, window)))
+
+    def _behaviour_verdict(self, track: Track) -> str | None:
+        """Urteil aus dem Verhalten, oder None solange nichts feststeht.
+
+        Schaden ist ein spaetes, aber eindeutiges Zeichen - man weiss es erst,
+        wenn es passiert ist. Umgekehrt gilt: wer lange genug zusieht, ohne
+        angegriffen zu werden, darf das Wesen als harmlos abhaken.
+        """
+        if track.harmed():
+            return "dangerous"
+        if len(track.history) >= self.patience:
+            return "harmless"
+        return None
 
     def _remember(self, decision: Decision) -> Decision:
         """Merkt die Drehung, damit das Gedaechtnis sie naechste Runde

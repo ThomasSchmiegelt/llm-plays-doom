@@ -1,0 +1,161 @@
+{
+  "tool": "eval_behaviour",
+  "recorded_at": "2026-08-29_204645",
+  "unix_time": 1788029205,
+  "provenance": "measured",
+  "params": {
+    "steps": 45,
+    "tics": 4,
+    "seed": 11,
+    "repeats": 1
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "c3cd321de338",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "e2cb291ea31f",
+      "detector.py": "ad80f6558f76",
+      "env.py": "bac5747b998d",
+      "eval_behaviour.py": "8d6af8bdef42",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "08525e1f61ab",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "5307f5a6c9b9",
+      "vertical.py": "63904e945344"
+    },
+    "combined": "cc010fd1f15f"
+  },
+  "notes": "Regel 'Schaden bedeutet gefaehrlich' gegen die Engine-Wahrheit: 6/10. Der Agent schiesst waehrend der Beobachtung nicht.",
+  "rows": [
+    {
+      "rolle": "Zivilist",
+      "actor": "MarineFist",
+      "truth": "harmless",
+      "damage": 0,
+      "hurt_at": null,
+      "seen": 43,
+      "approach": 0.0,
+      "motion": 0.0,
+      "predicted": "harmless",
+      "correct": true
+    },
+    {
+      "rolle": "Verbuendeter",
+      "actor": "MarineChaingun",
+      "truth": "harmless",
+      "damage": 0,
+      "hurt_at": null,
+      "seen": 43,
+      "approach": 0.0,
+      "motion": 0.0,
+      "predicted": "harmless",
+      "correct": true
+    },
+    {
+      "rolle": "feindlicher Mensch",
+      "actor": "MarineShotgun",
+      "truth": "dangerous",
+      "damage": 0,
+      "hurt_at": null,
+      "seen": 43,
+      "approach": 0.0,
+      "motion": 0.0,
+      "predicted": "harmless",
+      "correct": false
+    },
+    {
+      "rolle": "feindlicher Mensch",
+      "actor": "MarineBFG",
+      "truth": "dangerous",
+      "damage": 0,
+      "hurt_at": null,
+      "seen": 43,
+      "approach": 0.0,
+      "motion": 0.0,
+      "predicted": "harmless",
+      "correct": false
+    },
+    {
+      "rolle": "harmloses Monster",
+      "actor": "Demon",
+      "truth": "harmless",
+      "damage": 0,
+      "hurt_at": null,
+      "seen": 45,
+      "approach": -0.19,
+      "motion": 0.0,
+      "predicted": "harmless",
+      "correct": true
+    },
+    {
+      "rolle": "harmloses Monster",
+      "actor": "Cacodemon",
+      "truth": "harmless",
+      "damage": 0,
+      "hurt_at": null,
+      "seen": 45,
+      "approach": 0.13,
+      "motion": 18.35,
+      "predicted": "harmless",
+      "correct": true
+    },
+    {
+      "rolle": "gefaehrliches Monster",
+      "actor": "DoomImp",
+      "truth": "dangerous",
+      "damage": 0,
+      "hurt_at": null,
+      "seen": 45,
+      "approach": -0.01,
+      "motion": 8.05,
+      "predicted": "harmless",
+      "correct": false
+    },
+    {
+      "rolle": "gefaehrliches Monster",
+      "actor": "HellKnight",
+      "truth": "dangerous",
+      "damage": 0,
+      "hurt_at": null,
+      "seen": 40,
+      "approach": 0.0,
+      "motion": -1.0,
+      "predicted": "harmless",
+      "correct": false
+    },
+    {
+      "rolle": "Deko",
+      "actor": "ExplosiveBarrel",
+      "truth": "harmless",
+      "damage": 0,
+      "hurt_at": null,
+      "seen": 45,
+      "approach": 0.04,
+      "motion": 9.14,
+      "predicted": "harmless",
+      "correct": true
+    },
+    {
+      "rolle": "Deko",
+      "actor": "TechPillar",
+      "truth": "harmless",
+      "damage": 0,
+      "hurt_at": null,
+      "seen": 44,
+      "approach": -0.09,
+      "motion": 1.97,
+      "predicted": "harmless",
+      "correct": true
+    }
+  ]
+}

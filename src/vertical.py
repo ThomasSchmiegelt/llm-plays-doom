@@ -58,6 +58,9 @@ def render(frame_rgb, detections, decision, stats, latency, bot,
     y = GAME_TOP + GAME_H + 46
     label = (("GEFAEHRLICH" if verdict == "dangerous" else "HARMLOS")
              if verdict else _STATE_TEXT.get(state, state))
+    source = getattr(decision, "verdict_source", None)
+    if source:
+        label = f"{label}  ({source})"
     y = _state_block(canvas, y, label, color, getattr(decision, "reason", ""))
     y = _tiles(canvas, y, stats, bot)
     _legend(canvas, y)
@@ -132,9 +135,11 @@ def _game_view(frame_rgb, detections, decision, bot, ground_truth, show_gt,
 
 
 def _state_block(canvas, y, label, color, reason):
-    (tw, th), _ = cv2.getTextSize(label, _FONT, 2.1, 4)
+    # Der Zusatz in Klammern nennt die Quelle des Urteils und darf kleiner sein.
+    scale = 2.1 if "(" not in label else 1.5
+    (tw, th), _ = cv2.getTextSize(label, _FONT, scale, 4)
     cv2.rectangle(canvas, (54, y), (54 + tw + 44, y + th + 40), color, -1)
-    cv2.putText(canvas, label, (76, y + th + 18), _FONT, 2.1, (16, 16, 20), 4, cv2.LINE_AA)
+    cv2.putText(canvas, label, (76, y + th + 18), _FONT, scale, (16, 16, 20), 4, cv2.LINE_AA)
     y += th + 74
     for chunk in _wrap(reason, 46)[:2]:
         _text(canvas, chunk, 54, y, DIM, 0.92, 1)

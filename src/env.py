@@ -207,7 +207,7 @@ class DoomEnv:
                 self.game.send_game_command("god")
             self._select_chaingun()
             self.spawn_wave()
-            self._wake_hostiles()
+            self.wake()
 
     def _select_chaingun(self):
         """Die Startpistole ist fuer die Demo zu schwach - auf Kettengun gehen."""
@@ -247,8 +247,11 @@ class DoomEnv:
         self._warp(center_x, center_y)
         self._turn_to(start_angle)
 
-    def _wake_hostiles(self):
+    def wake(self):
         """Ein Schuss in die Luft, damit feindliche Akteure aufwachen.
+
+        Muss NACH dem Spawnen kommen: der Schall wirkt im Augenblick des
+        Schusses, wer spaeter erscheint, hat ihn nicht gehoert.
 
         Gemessen: ohne Laerm richtet kein einziger feindlicher Aktor ueber
         450 Tics Schaden an - sie stehen nur herum. Nach einem Schuss sind es
@@ -257,12 +260,14 @@ class DoomEnv:
         """
         self._step_raw(0.0, attack=True, tics=4)
         self._step_raw(0.0, tics=2)
+        # Munition auffuellen, damit der Weckschuss die Bilanz nicht faelscht.
         self.game.send_game_command("give ammo")
         self._step_raw(0.0, tics=2)
 
     def spawn_unknown(self, actor: str | None = None, friendly: bool | None = None,
                       truth: str | None = None, in_view: bool = True,
-                      view_spread: float = 32.0) -> tuple[str, str] | None:
+                      view_spread: float = 32.0,
+                      wake: bool = False) -> tuple[str, str] | None:
         """Setzt ein unbekanntes Wesen auf den Ring um den Spieler.
 
         Ohne Argumente waehlt der Zufallsgenerator der Episode aus
@@ -303,6 +308,8 @@ class DoomEnv:
         self._turn_to(start_angle)
 
         self.unknown_truth[actor.lower()] = truth
+        if wake:
+            self.wake()
         return (actor, truth)
 
     def _draw_unknown(self) -> tuple[str, bool, str] | None:

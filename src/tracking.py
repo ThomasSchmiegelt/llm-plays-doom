@@ -61,6 +61,7 @@ class Track:
     votes: dict[str, int] = field(default_factory=dict)
     verdict: str | None = None        # dangerous | harmless, sobald entschieden
     verdict_phrase: str | None = None  # die Beschreibung, die gewonnen hat
+    verdict_source: str | None = None  # "Aussehen" (vorlaeufig) oder "Verhalten"
 
     @property
     def fresh(self) -> bool:

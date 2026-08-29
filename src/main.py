@@ -206,7 +206,10 @@ def main():
                 # Unbekannte tauchen in festem Abstand auf, ausgewuerfelt aus
                 # UNKNOWN_ACTORS ueber den Zufallsgenerator der Episode.
                 if unknowns_left > 0 and steps >= next_unknown:
-                    spawned = env.spawn_unknown()
+                    # wake=True: feindliche Akteure schlafen, bis Laerm sie
+                    # weckt - ohne das greift keiner an und die
+                    # Verhaltensbeobachtung liefe ins Leere.
+                    spawned = env.spawn_unknown(wake=True)
                     next_unknown = steps + args.unknown_every
                     if spawned:
                         unknowns_left -= 1
