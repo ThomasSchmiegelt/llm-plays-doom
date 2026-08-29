@@ -34,23 +34,33 @@ UNKNOWN_SPAWN_RADIUS = (130.0, 260.0)
 # nicht an. Ein freundlicher Hell Knight sieht pixelgleich aus wie ein
 # feindlicher - rein visuelle Ueberwachung kann die beiden nicht trennen.
 # Genau dafuer stehen die letzten beiden Zeilen.
-UNKNOWN_ACTORS = [
-    # Aktor,              friendly, Wahrheit
-    ("HellKnight",        False, "dangerous"),
-    ("BaronOfHell",       False, "dangerous"),
-    ("Revenant",          False, "dangerous"),
-    ("Arachnotron",       False, "dangerous"),
-    ("ChaingunGuy",       False, "dangerous"),   # sieht aus wie ein Marine
-    ("ShotgunGuy",        False, "dangerous"),   # ebenso
-    ("ExplosiveBarrel",   False, "harmless"),
-    ("TechPillar",        False, "harmless"),
-    ("TallGreenColumn",   False, "harmless"),
-    ("BurningBarrel",     False, "harmless"),
-    ("EvilEye",           False, "harmless"),    # sieht bedrohlich aus
-    ("BigTree",           False, "harmless"),
-    ("HellKnight",        True,  "harmless"),    # Haertefall
-    ("Revenant",          True,  "harmless"),    # Haertefall
+# Rollen, die der Agent nicht kennt. Der Witz daran: das Aussehen entscheidet
+# nicht mehr ueber die Gefahr. Drei Marines sehen fast gleich aus und sind
+# Zivilist, Verbuendeter und Feind; zwei Monster sehen gleich bedrohlich aus
+# und nur eines greift an.
+#
+# Ein Aktorname traegt genau eine Wahrheit, sonst waere die Messung nicht
+# eindeutig - die Engine-Labels unterscheiden ein freundliches Exemplar nicht
+# von einem feindlichen.
+#
+# Spalten: Aktor, per summonfriend gesetzt, Rolle, Wahrheit
+UNKNOWN_ROLES = [
+    ("MarineFist",     True,  "Zivilist",             "harmless"),
+    ("MarineChaingun", True,  "Verbuendeter",         "harmless"),
+    ("MarineShotgun",  False, "feindlicher Mensch",   "dangerous"),
+    ("MarineBFG",      False, "feindlicher Mensch",   "dangerous"),
+    ("Demon",          True,  "harmloses Monster",    "harmless"),
+    ("Cacodemon",      True,  "harmloses Monster",    "harmless"),
+    ("DoomImp",        False, "gefaehrliches Monster", "dangerous"),
+    ("HellKnight",     False, "gefaehrliches Monster", "dangerous"),
+    # Deko als Gegenprobe: sieht nach nichts aus und ist auch nichts
+    ("ExplosiveBarrel", False, "Deko",                "harmless"),
+    ("TechPillar",     False, "Deko",                 "harmless"),
 ]
+
+# Nur Aktor, friendly, Wahrheit - das Format, das spawn_unknown erwartet
+UNKNOWN_ACTORS = [(a, f, t) for a, f, _, t in UNKNOWN_ROLES]
+ROLE_OF = {a.lower(): r for a, _, r, _ in UNKNOWN_ROLES}
 
 _MONSTER_SET = {a.lower() for a in MONSTER_ACTORS}
 _HUMAN_SET = {a.lower() for a in HUMAN_ACTORS} | {"marinechainsawvzd"}
@@ -197,6 +207,7 @@ class DoomEnv:
                 self.game.send_game_command("god")
             self._select_chaingun()
             self.spawn_wave()
+            self._wake_hostiles()
 
     def _select_chaingun(self):
         """Die Startpistole ist fuer die Demo zu schwach - auf Kettengun gehen."""
@@ -235,6 +246,19 @@ class DoomEnv:
 
         self._warp(center_x, center_y)
         self._turn_to(start_angle)
+
+    def _wake_hostiles(self):
+        """Ein Schuss in die Luft, damit feindliche Akteure aufwachen.
+
+        Gemessen: ohne Laerm richtet kein einziger feindlicher Aktor ueber
+        450 Tics Schaden an - sie stehen nur herum. Nach einem Schuss sind es
+        je nach Bewaffnung 12 bis 100 Punkte. Der Schuss faellt vor der
+        Messung, damit er die Munitionsbilanz nicht verfaelscht.
+        """
+        self._step_raw(0.0, attack=True, tics=4)
+        self._step_raw(0.0, tics=2)
+        self.game.send_game_command("give ammo")
+        self._step_raw(0.0, tics=2)
 
     def spawn_unknown(self, actor: str | None = None, friendly: bool | None = None,
                       truth: str | None = None, in_view: bool = True,

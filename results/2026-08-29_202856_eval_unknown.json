@@ -1,0 +1,155 @@
+{
+  "tool": "eval_unknown",
+  "recorded_at": "2026-08-29_202856",
+  "unix_time": 1788028136,
+  "provenance": "measured",
+  "params": {
+    "repeats": 2,
+    "window": 5,
+    "seed": 11,
+    "hypotheses": [
+      "descriptive"
+    ],
+    "probe_mode": "crop",
+    "actors": [],
+    "hypothesis_set": "descriptive"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "c3cd321de338",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "e2cb291ea31f",
+      "detector.py": "ad80f6558f76",
+      "env.py": "bac5747b998d",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "08525e1f61ab",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "5307f5a6c9b9",
+      "vertical.py": "63904e945344"
+    },
+    "combined": "cf0617453d06"
+  },
+  "notes": "Einzelbild gegen Beobachtungsfenster, Haertefaelle (summonfriend) getrennt gefuehrt.",
+  "rows": [
+    {
+      "actor": "MarineFist*",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "0%",
+      "window": "0%",
+      "steps": "10.0",
+      "ms": "759",
+      "hard_case": true
+    },
+    {
+      "actor": "MarineChaingun*",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "0%",
+      "window": "0%",
+      "steps": "10.0",
+      "ms": "788",
+      "hard_case": true
+    },
+    {
+      "actor": "MarineShotgun",
+      "truth": "dangerous",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "100%",
+      "window": "100%",
+      "steps": "10.0",
+      "ms": "788",
+      "hard_case": false
+    },
+    {
+      "actor": "MarineBFG",
+      "truth": "dangerous",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "100%",
+      "window": "100%",
+      "steps": "10.0",
+      "ms": "788",
+      "hard_case": false
+    },
+    {
+      "actor": "Demon*",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "12%",
+      "window": "0%",
+      "steps": "7.5",
+      "ms": "783",
+      "hard_case": true
+    },
+    {
+      "actor": "Cacodemon*",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "0%",
+      "window": "0%",
+      "steps": "4.5",
+      "ms": "771",
+      "hard_case": true
+    },
+    {
+      "actor": "DoomImp",
+      "truth": "dangerous",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "73%",
+      "window": "-",
+      "steps": "-",
+      "ms": "756",
+      "hard_case": false
+    },
+    {
+      "actor": "HellKnight",
+      "truth": "dangerous",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "57%",
+      "window": "0%",
+      "steps": "7.0",
+      "ms": "835",
+      "hard_case": false
+    },
+    {
+      "actor": "ExplosiveBarrel",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "0%",
+      "window": "0%",
+      "steps": "4.0",
+      "ms": "825",
+      "hard_case": false
+    },
+    {
+      "actor": "TechPillar",
+      "truth": "harmless",
+      "hypotheses": "descriptive",
+      "mode": "crop",
+      "single": "43%",
+      "window": "100%",
+      "steps": "5.0",
+      "ms": "841",
+      "hard_case": false
+    }
+  ]
+}

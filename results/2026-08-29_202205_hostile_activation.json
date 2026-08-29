@@ -1,0 +1,69 @@
+{
+  "tool": "hostile_activation",
+  "recorded_at": "2026-08-29_202205",
+  "unix_time": 1788027725,
+  "provenance": "measured",
+  "params": {
+    "scenario": "arena_mixed",
+    "distance": 180,
+    "window_tics": 450
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "c3cd321de338",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "e2cb291ea31f",
+      "detector.py": "ad80f6558f76",
+      "env.py": "bac5747b998d",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "08525e1f61ab",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "5307f5a6c9b9",
+      "vertical.py": "63904e945344"
+    },
+    "combined": "cf0617453d06"
+  },
+  "notes": "Warum feindliche Akteure oft nichts tun: sie schlafen. Ohne Laerm richtet keiner ueber 450 Tics Schaden an. Ein einzelner Schuss weckt sie. Das erklaert rueckblickend den gescheiterten Bewegungs-Pruefstand (Monster bei exakt 0.00 Pixelaenderung) und den Projektil-Pruefstand (kein Feuerball, weil nie gefeuert wurde). env.new_episode() gibt jetzt einen Weckschuss ab, vor der Munitionsmessung.",
+  "rows": [
+    {
+      "actor": "MarineChaingun",
+      "still": 0,
+      "geweckt": 15
+    },
+    {
+      "actor": "MarineShotgun",
+      "still": 0,
+      "geweckt": 75
+    },
+    {
+      "actor": "MarineFist",
+      "still": 0,
+      "geweckt": 12
+    },
+    {
+      "actor": "MarineBFG",
+      "still": 0,
+      "geweckt": 100
+    },
+    {
+      "actor": "MarineChainsawVzd",
+      "still": 0,
+      "geweckt": 20
+    },
+    {
+      "actor": "ShotgunGuy",
+      "still": 0,
+      "geweckt": 18
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "tool": "rollen_visuell",
+  "recorded_at": "2026-08-29_203259",
+  "unix_time": 1788028379,
+  "provenance": "measured",
+  "params": {
+    "scenario": "arena_mixed",
+    "repeats": 2,
+    "window": 5,
+    "mode": "crop",
+    "hypotheses": "descriptive",
+    "pool": "UNKNOWN_ROLES"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "c3cd321de338",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "e2cb291ea31f",
+      "detector.py": "ad80f6558f76",
+      "env.py": "bac5747b998d",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "08525e1f61ab",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "5307f5a6c9b9",
+      "vertical.py": "63904e945344"
+    },
+    "combined": "cf0617453d06"
+  },
+  "notes": "Der entscheidende Versuch. Fuenf Rollen, bei denen das Aussehen die Gefahr NICHT mehr bestimmt: drei Marines (Zivilist, Verbuendeter, Feind) sind pixelgleich, zwei Monstersorten sehen gleich bedrohlich aus und nur eine greift an.\\n\\nErgebnis: der visuelle Klassifikator nennt praktisch alles Belebte gefaehrlich. Auf den sechs friedlich gesetzten Akteuren liegt er zu 0 % richtig. Bei vier optisch identischen Marines, von denen zwei gefaehrlich sind, ist das exakt Zufallsniveau.\\n\\nDamit ist belegt, was aus dem Argument mit dem stehenden Fernkaempfer folgte: Aussehen kann Gefahr grundsaetzlich nicht entscheiden, sobald beide auseinanderfallen. Der naechste Schritt ist der Verhaltenskanal gegen die Wahrheit - jetzt erstmals messbar, weil feindliche Akteure durch den Weckschuss tatsaechlich angreifen.",
+  "rows": [
+    {
+      "rolle": "Zivilist",
+      "actor": "MarineFist",
+      "truth": "harmless",
+      "single": 0.0,
+      "window": 0.0
+    },
+    {
+      "rolle": "Verbuendeter",
+      "actor": "MarineChaingun",
+      "truth": "harmless",
+      "single": 0.0,
+      "window": 0.0
+    },
+    {
+      "rolle": "feindlicher Mensch",
+      "actor": "MarineShotgun",
+      "truth": "dangerous",
+      "single": 1.0,
+      "window": 1.0
+    },
+    {
+      "rolle": "feindlicher Mensch",
+      "actor": "MarineBFG",
+      "truth": "dangerous",
+      "single": 1.0,
+      "window": 1.0
+    },
+    {
+      "rolle": "harmloses Monster",
+      "actor": "Demon",
+      "truth": "harmless",
+      "single": 0.12,
+      "window": 0.0
+    },
+    {
+      "rolle": "harmloses Monster",
+      "actor": "Cacodemon",
+      "truth": "harmless",
+      "single": 0.0,
+      "window": 0.0
+    },
+    {
+      "rolle": "gefaehrliches Monster",
+      "actor": "DoomImp",
+      "truth": "dangerous",
+      "single": 0.73,
+      "window": null
+    },
+    {
+      "rolle": "gefaehrliches Monster",
+      "actor": "HellKnight",
+      "truth": "dangerous",
+      "single": 0.57,
+      "window": 0.0
+    },
+    {
+      "rolle": "Deko",
+      "actor": "ExplosiveBarrel",
+      "truth": "harmless",
+      "single": 0.0,
+      "window": 0.0
+    },
+    {
+      "rolle": "Deko",
+      "actor": "TechPillar",
+      "truth": "harmless",
+      "single": 0.43,
+      "window": 1.0
+    },
+    {
+      "gruppe": "alle summonfriend",
+      "single": 0.03,
+      "window": 0.0
+    },
+    {
+      "gruppe": "vier optisch identische Marines",
+      "korrekt": "2/4",
+      "anmerkung": "Zufallsniveau"
+    }
+  ]
+}
