@@ -124,6 +124,11 @@ class AimBot:
         # "man in dark uniform holding a gun" deckt sonst schon nach dem
         # ersten Mal jede weitere gepanzerte Figur ab.
         self.learning = True
+        # Aus: geschuetzte Objekte werden weiterhin erkannt und blau markiert,
+        # gelten aber trotzdem als Ziel. Damit laesst sich Wahrnehmung von
+        # Regelwerk trennen - beide Agenten sehen dasselbe, nur einer haelt
+        # sich daran.
+        self.respect_protection = True
         self.shots = 0
         self.holds = 0
         self.observations = 0
@@ -184,8 +189,13 @@ class AimBot:
              undecided).append(track.box)
 
         # Ziele nur aus frischen Erkennungen, Schutz auch aus dem Gedaechtnis.
-        protected = self.memory.boxes() + judged_harmless + undecided
-        targets = [d for d in visible if not d.protected and not d.unknown] + judged_dangerous
+        if self.respect_protection:
+            protected = self.memory.boxes() + judged_harmless + undecided
+            targets = ([d for d in visible if not d.protected and not d.unknown]
+                       + judged_dangerous)
+        else:
+            protected = []
+            targets = [d for d in visible if not d.unknown] + judged_dangerous
 
         if not targets:
             blockers = self._in_corridor(protected)

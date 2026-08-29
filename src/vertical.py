@@ -38,7 +38,8 @@ _STATE_COLOR = {"SCANNING": DIM, "AIMING": AMBER, "FIRING": RED,
 
 def render(frame_rgb, detections, decision, stats, latency, bot,
            ground_truth=None, show_gt=False, muzzle_flash=False,
-           shift: float = 0.0) -> np.ndarray:
+           shift: float = 0.0, heading: str | None = None,
+           subheading: str | None = None, heading_tone=None) -> np.ndarray:
     detections, decision, remembered = _shifted(
         detections, decision, bot.memory.remembered(), shift)
     canvas = np.full((H, W, 3), BG, np.uint8)
@@ -49,7 +50,7 @@ def render(frame_rgb, detections, decision, stats, latency, bot,
     if verdict:
         color = RED if verdict == "dangerous" else BLUE
 
-    _header(canvas)
+    _header(canvas, heading, subheading, heading_tone)
     game = _game_view(frame_rgb, detections, decision, bot, ground_truth,
                       show_gt, muzzle_flash, state, verdict, remembered)
     canvas[GAME_TOP:GAME_TOP + GAME_H] = game
@@ -65,9 +66,10 @@ def render(frame_rgb, detections, decision, stats, latency, bot,
 
 
 # -- Bausteine -----------------------------------------------------------
-def _header(canvas):
-    _text(canvas, "LLM SPIELT DOOM", 54, 84, FG, 1.9, 3)
-    _text(canvas, "erkennt Monster - verschont Menschen", 54, 144, DIM, 0.95, 1)
+def _header(canvas, heading=None, subheading=None, tone=None):
+    _text(canvas, heading or "LLM SPIELT DOOM", 54, 84, tone or FG, 1.9, 3)
+    _text(canvas, subheading or "erkennt Monster - verschont Menschen",
+          54, 144, DIM, 0.95, 1)
     cv2.line(canvas, (54, 186), (W - 54, 186), (60, 60, 70), 2)
 
 
