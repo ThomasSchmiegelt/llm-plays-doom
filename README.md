@@ -24,6 +24,19 @@ vom Verhalten überstimmt. Im Panel steht jeweils, woher das Urteil kommt:
 **[Derselbe Lauf, ungeschnitten](https://youtu.be/FkpW8xI2Nhs)** *(46 s)*
 Ohne Vor- und Abspann.
 
+**[Drei Regelwerke, ein Doom-Agent: was Vorsicht kostet](https://youtu.be/WlqqHI5g-y4)** *(21 s, Breitbild)*
+Drei Agenten nebeneinander, derselbe Seed, dieselbe Arena — und alle drei sehen
+exakt dasselbe. Nur die Regel unterscheidet sie: *wild* schießt auf alles,
+*streng* hält an, bis Unbekanntes eingeordnet ist, *gewichtet* beobachtet
+nebenher. Nach 160 Schritten: 57 Schuss und elfmal auf einen Menschen gefeuert
+gegen 4 Schuss und kein einziges Mal — der eine handlungsunfähig vor Vorsicht,
+der andere blind.
+
+> Einschränkung, die man dem Bild nicht ansieht: bei allen dreien steht am Ende
+> „Monster am Leben: 0", aber die gesicherten haben **null eigene Treffer**.
+> Geräumt hat die Arena ein befreundeter Marine mit BFG. Der Vergleich misst
+> Sicherheit sauber und Wirksamkeit gar nicht.
+
 Farbcode in beiden: **grün** Monster erkannt · **rot** aktuelles Ziel ·
 **blau** Mensch, nicht schießen · **violett** unbekannt, wird beobachtet.
 
