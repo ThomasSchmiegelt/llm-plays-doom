@@ -129,6 +129,14 @@ class AimBot:
         # Regelwerk trennen - beide Agenten sehen dasselbe, nur einer haelt
         # sich daran.
         self.respect_protection = True
+        # Aus: Beobachten haelt den Agenten nicht an. Er zielt und feuert
+        # weiter auf bekannte Ziele, waehrend die Hypothesenabfrage nebenher
+        # laeuft. Das Unbekannte sperrt weiterhin den Schusskorridor - es wird
+        # also nicht beschossen, nur nicht mehr angestarrt.
+        #
+        # Mit Unterbrechung wird der Agent bei mehreren Auftritten praktisch
+        # handlungsunfaehig: gemessen 4 Schuss und 0 Treffer ueber 160 Schritte.
+        self.observe_interrupts = True
         self.shots = 0
         self.holds = 0
         self.observations = 0
@@ -194,8 +202,10 @@ class AimBot:
             targets = ([d for d in visible if not d.protected and not d.unknown]
                        + judged_dangerous)
         else:
+            # Kein Regelwerk: alles ist Ziel, auch was noch gar nicht
+            # eingeordnet ist. Das Beobachten entfaellt damit ebenfalls.
             protected = []
-            targets = [d for d in visible if not d.unknown] + judged_dangerous
+            targets = list(visible) + judged_dangerous
 
         if not targets:
             blockers = self._in_corridor(protected)
@@ -246,7 +256,7 @@ class AimBot:
         Abfrage etwas taugt, und stellt das Feuer ein. Erst wenn die
         Abstimmung steht, laeuft der normale Ablauf weiter.
         """
-        if frame is None or classifier is None:
+        if frame is None or classifier is None or not self.respect_protection:
             return None
         pending = [t for t in self.unknowns.tracks()
                    if t.verdict is None and t.fresh]
@@ -257,6 +267,11 @@ class AimBot:
         focus = max(pending, key=lambda t: t.box.area)
         verdict = classifier.observe(frame, focus)
         self.observations += 1
+
+        if verdict is None and not self.observe_interrupts:
+            # Nebenher beobachten: die Probe ist gezaehlt, der normale Ablauf
+            # geht weiter.
+            return None
 
         if verdict is not None:
             learned = self.learn(verdict.phrase, verdict.kind)

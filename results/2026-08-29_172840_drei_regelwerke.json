@@ -1,0 +1,65 @@
+{
+  "tool": "drei_regelwerke",
+  "recorded_at": "2026-08-29_172840",
+  "unix_time": 1788017320,
+  "provenance": "measured",
+  "params": {
+    "steps": 160,
+    "seed": 21,
+    "monsters": 7,
+    "humans": 5,
+    "unknowns": 5,
+    "unknown_every": 24,
+    "window": 5,
+    "tolerance": 6.0
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "c3cd321de338",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "e2cb291ea31f",
+      "detector.py": "ad80f6558f76",
+      "env.py": "70232052d358",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "08525e1f61ab",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "5307f5a6c9b9",
+      "vertical.py": "63904e945344"
+    },
+    "combined": "4faa43077f41"
+  },
+  "notes": "Drei Regelwerke, gleicher Seed, gleiche Arena, identische Wahrnehmung. Die gewichtete Variante (Beobachten laeuft nebenher, Arten werden gemerkt) loest die Laehmung nur halb: sie feuert mehr als die strenge, gewinnt aber keine Treffer und verliert die perfekte Null. WICHTIG - dieser Aufbau kann Wirksamkeit gar nicht messen: der befreundete MarineBFG raeumt die Arena selbst leer, deshalb steht ueberall 'Monster am Leben 0' bei 0 eigenen Treffern. Fuer eine belastbare Wirksamkeitsmessung muesste MarineBFG aus HUMAN_ACTORS verschwinden.",
+  "rows": [
+    {
+      "regelwerk": "wild",
+      "ammo": 57,
+      "hits": 42,
+      "at_humans": 11,
+      "monsters_alive": 0
+    },
+    {
+      "regelwerk": "streng",
+      "ammo": 4,
+      "hits": 0,
+      "at_humans": 0,
+      "monsters_alive": 0
+    },
+    {
+      "regelwerk": "gewichtet",
+      "ammo": 10,
+      "hits": 0,
+      "at_humans": 1,
+      "monsters_alive": 0
+    }
+  ]
+}
