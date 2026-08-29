@@ -14,6 +14,28 @@ Steht ein Mensch in der Schusslinie, wird das Feuer eingestellt.
 * **Handeln** — deterministische Geometrie: Box-Mitte gegen Fadenkreuz,
   Drehwinkel aus dem Blickfeld, Schuss ab 14 px Abweichung.
 
+## Videos
+
+**[Aussehen lügt — wie der Agent Unbekanntes einordnet](https://youtube.com/shorts/H2lsb3mzzgw)** *(Short, 52 s)*
+Ein unbekanntes Wesen taucht auf. Der Detektor rät nach dem Aussehen — und wird
+vom Verhalten überstimmt. Im Panel steht jeweils, woher das Urteil kommt:
+*GEFÄHRLICH (Aussehen)* ist eine Vermutung, *(Verhalten)* ist endgültig.
+
+**[Derselbe Lauf, ungeschnitten](https://youtu.be/FkpW8xI2Nhs)** *(46 s)*
+Ohne Vor- und Abspann.
+
+Farbcode in beiden: **grün** Monster erkannt · **rot** aktuelles Ziel ·
+**blau** Mensch, nicht schießen · **violett** unbekannt, wird beobachtet.
+
+Die Videodateien liegen nicht im Repository (`out/` ist ausgeschlossen), sind
+aber jederzeit reproduzierbar:
+
+```bash
+src/main.py --unknowns 7 --smooth --record-vertical out/lauf.mp4
+src/make_social.py --source out/lauf.mp4 --out out/kurz.mp4 --duration 52 --max-hold 4
+src/compare_ammo.py          # drei Regelwerke nebeneinander, auch im Breitbild
+```
+
 ## Start
 
 ```bash
