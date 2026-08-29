@@ -1,0 +1,57 @@
+{
+  "tool": "ammo_discipline_compare",
+  "recorded_at": "2026-08-29_154203",
+  "unix_time": 1788010923,
+  "provenance": "measured",
+  "params": {
+    "steps": 150,
+    "seed": 21,
+    "monsters": 7,
+    "humans": 5,
+    "tolerance": 6.0,
+    "tics": 4,
+    "detector": "LocateAnything-3B"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.84",
+    "torch": "2.13.0+cu130"
+  },
+  "code": {
+    "files": {
+      "bot.py": "1e6ef3c13cb3",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "0e5749762e7f",
+      "detector.py": "ad80f6558f76",
+      "env.py": "70232052d358",
+      "eval_detector.py": "c33b0552ff38",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "08525e1f61ab",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "tracking.py": "5307f5a6c9b9",
+      "vertical.py": "e7ea1a2c4de3"
+    },
+    "combined": "ff7a676b7287"
+  },
+  "notes": "Zwei Agenten im selben Prozess, gleicher Seed, gleiche Arena. Die Trefferquote steht bewusst nicht in der Auswertung: der ungesicherte Agent kommt auf 82 %, weil seine Treffer ueberwiegend nahe Marines sind - die Zahl wuerde ihn besser aussehen lassen, als er ist.",
+  "rows": [
+    {
+      "guard": "ohne",
+      "ammo": 44,
+      "hits": 36,
+      "shots_at_humans": 25,
+      "monsters_alive": 0
+    },
+    {
+      "guard": "Korridor + Gedaechtnis",
+      "ammo": 18,
+      "hits": 4,
+      "shots_at_humans": 0,
+      "monsters_alive": 0
+    }
+  ]
+}
