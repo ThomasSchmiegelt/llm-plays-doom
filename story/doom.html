@@ -224,14 +224,15 @@
     <h1>Doom, gemessen</h1>
     <p class="standfirst">Ein Vision-Language-Modell spielt Doom, verschont die Menschen im Bild und
     entscheidet bei Wesen, die es nicht kennt, ob sie gefährlich sind. Jede Stufe drehte sich
-    an einer Zahl, die sich messen ließ.</p>
+    an einer Zahl, die sich messen ließ — bis eine davon zeigte, dass Sehen für diese Frage
+    grundsätzlich nicht ausreicht.</p>
   </header>
 
   <div class="ticker">
     <div class="tick"><b>97,1 %</b><span>Treffer auf Doom-Sprites</span></div>
     <div class="tick"><b>56 % → 6 %</b><span>Menschen für Monster gehalten</span></div>
     <div class="tick"><b>19 → 0</b><span>Schüsse auf Menschen</span></div>
-    <div class="tick"><b>7 → 10 von 14</b><span>Unbekanntes richtig eingeordnet</span></div>
+    <div class="tick"><b>0 % gegen 100 %</b><span>Aussehen gegen Verhalten</span></div>
   </div>
 
   <!-- ================= 1 ================= -->
@@ -427,8 +428,126 @@
   <!-- ================= 4 ================= -->
   <section>
     <div class="col">
+      <p class="chapter-mark">Vierte Stufe · Munition</p>
+      <h2>Sparsamkeit ist selbst eine Schutzmaßnahme</h2>
+      <p>Der Einwand kam von außen und veränderte, was überhaupt gemessen wird: <em>Wildes
+      Herumballern ist nicht erwünscht. Verbrauchte Munition ist eine Messgröße — je weniger,
+      desto besser. Und das ist auch ein schützendes Kriterium.</em></p>
+      <p>Der zweite Halbsatz ist der interessante. Wer jeden Schuss rechtfertigen muss, feuert
+      nicht ins Ungewisse. <strong>Munitionsdisziplin und Personenschutz sind dieselbe Sache
+      aus zwei Blickwinkeln</strong> — man braucht „verschone Menschen" gar nicht als eigene
+      Regel, wenn Munition knapp ist.</p>
+      <p>Nachgerechnet an der Zielgenauigkeit, mit perfekter Erkennung gemessen, um die
+      Zielmechanik zu isolieren:</p>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <caption>Wie eng darf das Ziel vom Fadenkreuz abweichen? 150 Schritte je Zeile</caption>
+        <thead><tr><th scope="col">Toleranz</th><th scope="col">Munition</th>
+          <th scope="col">je Abschuss</th><th scope="col">Eigenbeschuss</th>
+          <th scope="col">Monster</th></tr></thead>
+        <tbody>
+          <tr><td>30 px</td><td class="num">20</td><td class="num">2,9</td>
+            <td class="num bad">5</td><td class="num">7/7</td></tr>
+          <tr><td>14 px</td><td class="num">18</td><td class="num">2,6</td>
+            <td class="num">0</td><td class="num">7/7</td></tr>
+          <tr class="pick"><td>3 px</td><td class="num good">14</td><td class="num good">2,0</td>
+            <td class="num good">0</td><td class="num">7/7</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <p>Dieselbe Stellschraube senkt den Verbrauch um 30 Prozent, beseitigt den Eigenbeschuss
+      und kostet nichts an Wirksamkeit. Mit dem echten Detektor fällt der Unterschied noch
+      deutlicher aus: <strong>68 Schuss gegen 18</strong>, und elf Schüsse auf einen Menschen
+      gegen keinen einzigen.</p>
+      <p>Eine Sache funktionierte dabei nicht, obwohl sie naheliegt. Der Abzug wurde über die
+      ganze Aktion gehalten — vier Tics lang. Das klang nach Verschwendung. Gemessen: 0,85
+      Schuss je Entscheidung bei vier, zwei und einem Tic, identisch. <em>Die Kettengun hat
+      ihre eigene Feuerrate</em>, der Abzug darf gehalten werden, wie er will.</p>
+
+      <h3>Und eine Zahl, die nie dem Agenten gehörte</h3>
+      <p>Beim Einbau fiel auf, dass „Monster erlegt" nie zurechenbar war. In der Arena stehen
+      befreundete Marines mit BFG, und Monster prügeln sich untereinander. Die Spalte stand in
+      <em>jeder</em> Zeile auf 7/7 — auch dort, wo der Agent sechs Schuss abgab. Die Engine hat
+      zurechenbare Zähler, <code>HITCOUNT</code> und <code>DAMAGECOUNT</code>; danach richten
+      sich die neueren Tabellen.</p>
+      <p>Damit kippt auch die Lesart des ausgeteilten Schadens: 260 Punkte beim ungesicherten
+      Agenten gegen 25 beim gesicherten. <strong>Schaden ist eine Kostenstelle, keine
+      Leistung</strong>, wenn ein Großteil davon in Marines landet.</p>
+    </div>
+  </section>
+
+  <!-- ================= 5 ================= -->
+  <section>
+    <div class="col">
+      <p class="chapter-mark">Fünfte Stufe · Der entscheidende Versuch</p>
+      <h2>Als das Aussehen aufhörte zu genügen</h2>
+      <p>Bis hierhin fielen Aussehen und Gefahr zusammen: Monster waren gefährlich, Menschen
+      geschützt. Der nächste Vorschlag riss das auseinander — <em>vielleicht sollte es Marines
+      als Zivilisten geben, Marines die auf Monster feuern, und Marines als Feinde, dazu
+      harmlose und gefährliche Monster.</em></p>
+      <p>Fünf Rollen also, bei denen das Bild nichts mehr verrät. Drei Marines sind
+      <strong>pixelgleich</strong> und sind Zivilist, Verbündeter und Feind. Zwei Monsterarten
+      sehen gleich bedrohlich aus, und nur eine greift an. Umgesetzt über die
+      Beschwörungsart: <code>summonfriend</code> setzt ein Wesen, das den Spieler nie
+      angreift — bei identischem Sprite.</p>
+    </div>
+
+    <figure class="delta" data-tone="red">
+      <div class="delta-pair"><span class="to">0 von 6</span></div>
+      <figcaption>So oft lag der visuelle Klassifikator auf den friedlich gesetzten Akteuren
+      richtig. Bei vier optisch identischen Marines, von denen zwei gefährlich sind, ist das
+      exakt Zufallsniveau. Er nennt schlicht alles Belebte gefährlich.</figcaption>
+    </figure>
+
+    <div class="col">
+      <p>Das ist kein Versagen des Modells. Es ist der Beweis, dass die Frage <strong>visuell
+      grundsätzlich nicht beantwortbar</strong> ist, sobald Aussehen und Verhalten
+      auseinanderfallen. Genau das war schon vorher eingewandt worden, als es um Bewegung als
+      Merkmal ging: <em>eine Monsterstrategie kann darin bestehen, stehen zu bleiben und aus
+      der Distanz zu schießen.</em> Jetzt zeigte es ein Aufbau, statt dass es jemand behauptet.</p>
+    </div>
+  </section>
+
+  <!-- ================= 6 ================= -->
+  <section>
+    <div class="col">
+      <p class="chapter-mark">Sechste Stufe · Verhalten</p>
+      <h2>Was jemand tut, statt wie er aussieht</h2>
+      <p>Die Gegenprobe liegt nahe und ließ sich mit denselben Daten führen: Fällt die eigene
+      Gesundheit, während ein Wesen zu sehen ist, dann ist es gefährlich. Der Agent schießt
+      während der Beobachtung bewusst nicht, sonst wäre nicht zu trennen, wer wen provoziert
+      hat.</p>
+    </div>
+
+    <figure class="delta" data-tone="green">
+      <div class="delta-pair"><span class="from">0 %</span><span class="arrow">→</span><span class="to">100 %</span></div>
+      <figcaption>Aussehen gegen Verhalten auf denselben zehn Rollen. Alle vier harmlosen
+      richten null Schaden an, alle vier gefährlichen tun es, die Deko ebenfalls null.
+      Zehn von zehn.</figcaption>
+    </figure>
+
+    <div class="col">
+      <p>Der Preis steht daneben und ist nicht klein: <strong>der erste Schaden kommt im Mittel
+      erst nach 7,3 Schritten</strong> — früheste Reaktion nach zwei, späteste nach elf. Man
+      weiß es erst, wenn es passiert ist. Bei einem Marine mit BFG sind das hundert Punkte auf
+      einen Schlag.</p>
+      <p>Im Agenten ist das Aussehen deshalb nur noch ein <em>vorläufiges</em> Urteil. Der
+      unbekannte Gegner bleibt in Beobachtung, und das Verhalten darf überstimmen. Im Overlay
+      steht die Quelle dabei: <em>GEFÄHRLICH (Aussehen)</em> ist eine Vermutung,
+      <em>(Verhalten)</em> ist endgültig — und liest sich im Video als Korrektur, wenn eine
+      blaue Box aus einer roten wird.</p>
+    </div>
+  </section>
+
+  <!-- ================= 7 ================= -->
+  <section>
+    <div class="col">
       <p class="chapter-mark">Was schiefging</p>
-      <h2>Drei Sackgassen, die etwas erklärten</h2>
+      <h2>Vier Sackgassen, und eine Ursache für drei davon</h2>
 
       <h3>Der Bewegungskanal</h3>
       <p>Der Vorschlag lag nahe: Steinwände bewegen sich nicht, Kreaturen animieren sich. Ein
@@ -444,6 +563,27 @@
       kann darin bestehen, stehen zu bleiben und aus der Distanz zu schießen.</strong> In Doom ist das
       keine Theorie — ShotgunGuy und ChaingunGuy tun genau das. Bewegung trennt belebt von unbelebt,
       nicht gefährlich von harmlos. Das sind zwei verschiedene Fragen.</p>
+
+      <h3>Der Projektil-Kanal</h3>
+      <p>Wenn Bewegung nicht taugt, dann vielleicht das, was ein stehender Schütze
+      <em>abfeuert</em>. Ein Feuerball ist ein helles, eigenständiges Sprite — also müsste eine
+      Hypothesenklasse wie <code>a glowing fireball</code> den Angriff melden, bevor er trifft.
+      Und es bliebe bei der Vorgabe, dass allein LocateAnything überwacht.</p>
+      <p>Vier Formulierungen gemessen, alle mit <strong>höherer Fehlalarm- als
+      Trefferquote</strong>. Die beste kam auf 13 Prozent Recall bei 36 Prozent Fehlalarm. Der
+      Kanal trägt negative Information; ihn einzubauen hätte den Agenten verschlechtert.</p>
+
+      <h3>Die gemeinsame Ursache</h3>
+      <p>Drei Prüfstände hatten dasselbe Problem, und es dauerte lange, bis es auffiel:
+      <strong>feindliche Akteure in Doom schlafen, bis Lärm sie weckt.</strong> Ohne einen Schuss
+      richtet über 450 Tics kein einziger Schaden an; danach sind es je nach Bewaffnung zwölf bis
+      hundert Punkte.</p>
+      <p>Damit erklärt sich rückblickend alles: die Monster im Bewegungsprüfstand standen bei
+      exakt 0,00 Pixeländerung, weil sie wirklich stillstanden. Im Projektilprüfstand flog nie ein
+      Feuerball, weil nie gefeuert wurde. Und in echten Läufen funktionierte trotzdem alles — der
+      Agent schießt ja. Der Weckschuss muss außerdem <em>nach</em> dem Spawnen fallen: im ersten
+      Anlauf lag er davor, kein Akteur griff an, und die Verhaltensmessung ergab 6 von 10 aus
+      lauter Nullen.</p>
 
       <h3>Zwei Modellinstanzen</h3>
       <p>Auch naheliegend: eine zweite LocateAnything-Instanz eigens für Unbekanntes. Es sind
@@ -501,8 +641,8 @@
         <small>mit den mitgelieferten Freedoom-WADs, Arena aus <code>deathmatch.wad</code></small></dd></div>
       <div class="spec"><dt>Rechnen</dt><dd>RTX 3090, 24 GB
         <small>bf16, rund 600 ms je Bild bei fünf Klassen</small></dd></div>
-      <div class="spec"><dt>Umfang</dt><dd>2856 Zeilen Python
-        <small>zwölf Dateien, davon drei reine Messwerkzeuge</small></dd></div>
+      <div class="spec"><dt>Umfang</dt><dd>3735 Zeilen Python
+        <small>sechzehn Dateien, davon fünf reine Messwerkzeuge</small></dd></div>
     </div>
 
     <div class="flow">Ein Schritt des Agenten
@@ -520,6 +660,16 @@
       <p>Die Arbeitsteilung ist über alle Stufen dieselbe geblieben: <strong>Das Modell sieht. Die
       Geometrie handelt. Die Engine urteilt über beide.</strong> Kein Schritt der Entscheidungslogik
       ist gelernt, und genau deshalb ließ sich jede Änderung beziffern.</p>
+
+      <h3>Ergebnisse werden archiviert</h3>
+      <p>Von den Messungen einer ganzen Arbeitssitzung lag am Ende <strong>eine einzige</strong>
+      noch auf der Platte, weil jeder Lauf die Logdatei des vorigen überschrieb. Seitdem schreibt
+      jedes Messwerkzeug nach <code>results/</code> — mit Parametern, Umgebung und einem
+      Fingerabdruck des Codes, der die Zahl erzeugt hat. Ohne den lässt sich später nicht
+      entscheiden, ob zwei Zahlen überhaupt vergleichbar sind. Vierundzwanzig Läufe liegen dort,
+      die negativen ausdrücklich mit.</p>
+      <p>Das Archiv rechtfertigte sich sofort selbst: beim ersten Nachtragen fielen zwei Läufe in
+      dieselbe Sekunde, und einer überschrieb den anderen. Dieselbe Fehlerklasse noch einmal.</p>
       <p>Drei Details der Engine kosteten je eine Sitzung: Das Dreh-Delta wirkt pro Tic.
       <code>summon</code> setzt Akteure immer knapp vor den Spieler, für einen Ring auf Distanz muss
       der Spieler selbst per <code>warp</code> dorthin und zurück. Und die Waffenwahl geht nur über
@@ -539,35 +689,69 @@
 
     <div class="open">
       <article>
-        <span class="tag">Entwurfsentscheidung</span>
-        <h3>Ist „Mensch" neben „gefährlich" noch sinnvoll?</h3>
-        <p>Die beiden Achsen sind bisher vermischt. „Mensch" sagt, <em>was</em> etwas ist;
-        „gefährlich" sagt, <em>was es bedeutet</em>. In Doom fallen sie messbar auseinander:
-        ChaingunGuy und ShotgunGuy sind Menschen <em>und</em> feindlich. Zurzeit gewinnt „geschützt"
-        stillschweigend gegen „gefährlich". Das sollte eine ausgesprochene Einsatzregel werden —
-        <em>gefährlich, aber geschützt: Feuer verboten</em> — oder ganz entfallen.</p>
+        <span class="tag">Blinder Fleck im Aufbau</span>
+        <h3>Die Arena kann Wirksamkeit nicht messen</h3>
+        <p>Bei allen drei Regelwerken steht am Ende „Monster am Leben: 0" — aber die gesicherten
+        Agenten haben <em>null eigene Treffer</em>. Geräumt hat ein befreundeter Marine mit BFG.
+        Solange der herumläuft, wird der Agent nie gebraucht, und der Vergleich misst nur
+        Sicherheit. Die Korrektur ist klein: <code>MarineBFG</code> gegen <code>MarineFist</code>
+        tauschen, dann müssen die Monster vom Agenten erlegt werden.</p>
       </article>
       <article>
-        <span class="tag">Nächster Kanal</span>
-        <h3>Das Projektil statt der Bewegung</h3>
-        <p>Ein stehender Fernkämpfer verrät sich nicht durch Bewegung, aber durch das, was er
-        abfeuert. Ein Feuerball ist ein helles, eigenständiges Sprite — also eine weitere
-        Hypothesenklasse, <code>a glowing fireball</code>. Damit meldet LocateAnything den Angriff
-        selbst, bevor er trifft, und die Vorgabe „das Modell überwacht das" bleibt gewahrt.</p>
+        <span class="tag">Früheres Signal</span>
+        <h3>„Schießt jemand" gegen „schießt auf mich"</h3>
+        <p>Schaden ist ein spätes Zeichen — man weiß es erst, wenn es passiert ist, im Mittel nach
+        7,3 Schritten. Aber der Verbündete <em>feuert</em> ja auch, nur eben nicht auf mich. Diese
+        beiden Signale zu trennen käme früher als der eigene Schaden und würde den Preis der
+        Gewissheit senken.</p>
+      </article>
+      <article>
+        <span class="tag">Gedächtnis</span>
+        <h3>Ein Urteil über Episoden hinweg behalten</h3>
+        <p>Ein Verhaltensurteil ist endgültig und gilt für die ganze Art — anders als eine
+        Vermutung aus dem Aussehen. Erst jetzt, wo die Urteile verlässlich sind, lohnt es sich,
+        sie über einen Lauf hinaus zu behalten.</p>
       </article>
       <article>
         <span class="tag">Reproduzierbarkeit</span>
         <h3>Gierige Dekodierung</h3>
-        <p>Solange das Modell mit Sampling dekodiert, schwankt jede veröffentlichte Zahl von Lauf zu
-        Lauf. Bei Temperatur null wird der gesamte Demonstrator wiederholbar — und die Messungen
-        werden Aussagen statt Stichproben.</p>
+        <p>Solange das Modell mit Sampling dekodiert, schwankt jede veröffentlichte Zahl von Lauf
+        zu Lauf: zweimal dieselbe Konfiguration ergab 19 → 1 → 0 und 13 → 1 → 1 Eigenbeschuss.
+        Bei Temperatur null werden die Messungen Aussagen statt Stichproben.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= Ansehen ================= -->
+  <section>
+    <div class="col">
+      <p class="chapter-mark">Zum Ansehen</p>
+      <h2>Der Agent bei der Arbeit</h2>
+    </div>
+
+    <div class="open">
+      <article>
+        <span class="tag">Short · 52 s</span>
+        <h3><a href="https://youtube.com/shorts/H2lsb3mzzgw">Aussehen lügt</a></h3>
+        <p>Ein unbekanntes Wesen taucht auf. Der Detektor rät nach dem Aussehen und wird vom
+        Verhalten überstimmt. Im Panel steht jeweils die Quelle des Urteils — <em>(Aussehen)</em>
+        ist eine Vermutung, <em>(Verhalten)</em> ist endgültig.
+        <a href="https://youtu.be/FkpW8xI2Nhs">Derselbe Lauf ungeschnitten</a>.</p>
       </article>
       <article>
-        <span class="tag">Tempo</span>
-        <h3>Beobachten, während gehandelt wird</h3>
-        <p>Die Hypothesenabfrage läuft heute nach der Haupterkennung. Auf einer zweiten Instanz —
-        24 GB reichen für beide — liefe sie parallel. Das halbiert die Latenz in den
-        Beobachtungsphasen, ohne an der Genauigkeit etwas zu ändern.</p>
+        <span class="tag">Breitbild · 21 s</span>
+        <h3><a href="https://youtu.be/WlqqHI5g-y4">Drei Regelwerke, was Vorsicht kostet</a></h3>
+        <p>Derselbe Seed, dieselbe Arena, identische Wahrnehmung — nur die Regel unterscheidet
+        sie. 57 Schuss und elfmal auf einen Menschen gefeuert gegen 4 Schuss und kein einziges
+        Mal. Der eine blind, der andere handlungsunfähig vor Vorsicht.</p>
+      </article>
+      <article>
+        <span class="tag">Quelltext</span>
+        <h3><a href="https://github.com/ThomasSchmiegelt/llm-plays-doom">llm-plays-doom</a></h3>
+        <p>Der vollständige Agent, fünf Messwerkzeuge und alle vierundzwanzig archivierten
+        Läufe — die negativen ausdrücklich mit. Farbcode in allen Videos: <strong>grün</strong>
+        Monster erkannt, <strong>rot</strong> aktuelles Ziel, <strong>blau</strong> Mensch nicht
+        schießen, <strong>violett</strong> unbekannt und in Beobachtung.</p>
       </article>
     </div>
   </section>
