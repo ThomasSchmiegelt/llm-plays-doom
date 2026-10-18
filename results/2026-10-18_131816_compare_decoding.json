@@ -1,0 +1,75 @@
+{
+  "tool": "compare_decoding",
+  "recorded_at": "2026-10-18_131816",
+  "unix_time": 1792322296,
+  "provenance": "measured",
+  "params": {
+    "modes": [
+      "hybrid",
+      "guided"
+    ],
+    "titles": [
+      "vorher: hybrid (Modellcode)",
+      "nachher: guided"
+    ],
+    "seconds": 30,
+    "seed": 21,
+    "monsters": 8,
+    "humans": 3,
+    "tics": 4,
+    "out": "out/vergleich_dekodierung.mp4"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.99.02",
+    "torch": "2.11.0+cu128"
+  },
+  "code": {
+    "files": {
+      "bot.py": "6b9c6bdde365",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "e2cb291ea31f",
+      "compare_decoding.py": "4a53683c1d85",
+      "detector.py": "5c958cefafb9",
+      "distill.py": "ed0c60426716",
+      "env.py": "3372a38706bf",
+      "eval_behaviour.py": "068fd02055cf",
+      "eval_detector.py": "db5179264a6f",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "52d391d4bd6d",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "story_film.py": "c330c8997793",
+      "tracking.py": "377697e7bae4",
+      "vertical.py": "41352bdfad45",
+      "yolo_detector.py": "e6f850b2817d"
+    },
+    "combined": "4198ec129b91"
+  },
+  "notes": "Echtzeit: waehrend der Inferenz laeuft das Spiel weiter.",
+  "rows": [
+    {
+      "decisions": 18,
+      "shots": 2,
+      "friendly_fire": 0,
+      "hits": 2,
+      "bullets": 4,
+      "mode": "hybrid",
+      "ms_median": 1485.2397270005895,
+      "incidents": []
+    },
+    {
+      "decisions": 48,
+      "shots": 5,
+      "friendly_fire": 0,
+      "hits": 10,
+      "bullets": 10,
+      "mode": "guided",
+      "ms_median": 458.8421769994966,
+      "incidents": []
+    }
+  ]
+}

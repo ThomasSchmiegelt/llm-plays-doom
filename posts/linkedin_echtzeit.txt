@@ -1,0 +1,29 @@
+Doom-Agent in Echtzeit: von 1,6 Sekunden auf 10 Millisekunden pro Bild.
+
+Der Agent schießt auf Monster und verschont Menschen. Gesehen hat er bisher durch NVIDIA LocateAnything-3B. Für Echtzeit bleiben 114 ms pro Entscheidung.
+
+Schritt 1: Dekodierung.
+Im Standardmodus wiederholte das Modell Boxen bis zum Token-Limit. In 8 von 24 Testbildern kam es nie bis zur Klasse „Mensch". Eine eigene Steuerschleife gibt die Klassen vor und bricht Wiederholungen ab.
+Ergebnis: 1,6 s → 0,5 s pro Bild. Menschen erkannt: 57 % → 86 %.
+
+Schritt 2: Lehrer und Schüler.
+LocateAnything beschriftet 2.000 Spielbilder, ein YOLO lernt daraus. Keine Engine-Labels im Training.
+Ergebnis: 9 ms pro Bild, 58-mal schneller als der Lehrer. Monster erkannt: 64 % statt 41 %. Menschen: 79 % statt 72 %.
+
+Warum YOLO11 und nicht YOLO26?
+Gleiche Daten, gleiches Training, beide gemessen.
+Auf Testbildern ist YOLO26 vorsichtiger: 0 % statt 1 % Menschen als Monster erkannt, weniger Fehlalarme.
+Im Spiel kehrt sich das um: 55 % Trefferquote statt 71 %. Ein Drittel mehr Munition für etwa gleich viele Treffer.
+Den Vorteil bei kleinen Objekten zeigt YOLO26 auf Doom-Sprites nicht.
+Entschieden hat das Verhalten im Spiel, nicht der Benchmark.
+
+Im Video: dieselbe Szene, 30 Sekunden in Echtzeit.
+Original: 14 Entscheidungen, 2 Treffer.
+Optimierte Dekodierung: 35 Entscheidungen, 10 Treffer.
+YOLO11: 263 Entscheidungen, 42 Treffer.
+
+Offen: Ein Schuss fiel direkt neben einem erkannten Menschen, die Box war 10 Pixel zu schmal. Die Korrektur gehört in die Sicherheitsmarge.
+
+Alles lokal auf einer RTX 3090.
+
+#ComputerVision #YOLO #KnowledgeDistillation #VLM #Doom

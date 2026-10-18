@@ -16,3 +16,5 @@ decord
 lmdb
 # Spiel
 vizdoom==1.3.0
+# Echtzeit-Detektor (YOLO) und Destillation, siehe src/distill.py
+ultralytics==8.4.182

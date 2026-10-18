@@ -102,7 +102,31 @@ src/main.py --god --steps 700 --record out/lauf.mp4   # Aufzeichnung
 src/main.py --classes ... --protected ...       # Prompt und Schutzklassen
 src/main.py --scenario defend_the_center        # klassische Arena ohne Menschen
 src/main.py --fake-detector                     # ohne GPU, Boxen aus der Engine
+src/main.py --decoding hybrid                   # Dekodierung des Modellcodes statt guided
+src/main.py --detector models/distill/weights/best.pt   # YOLO-Schueler, Echtzeit
 ```
+
+## Echtzeit: Dekodierung und Lehrer-Schueler
+
+Ausfuehrlich mit Bildern in [`posts/artikel_echtzeit.md`](posts/artikel_echtzeit.md).
+
+* **Gefuehrte Dekodierung** (`guided`, jetzt Default). Der Hybridmodus von
+  LocateAnything wiederholt auf Doom-Frames Boxen bis zum Token-Limit; in 8
+  von 24 Testbildern kam er nie bis zur Menschen-Klasse. `guided` gibt die
+  Klassen vor und entscheidet ueber einen Schiedsrichter aus derselben
+  Vorwaertsrechnung, ob noch eine Box folgt: 1575 -> 486 ms je Bild,
+  Menschen erkannt 57 % -> 86 %.
+* **LocateAnything als Lehrer.** `src/distill.py` laesst LocateAnything 2.000
+  Bilder beschriften und trainiert darauf ein YOLO11s - ohne Engine-Labels,
+  ohne die Seeds der Messung. 9 ms je Bild; auf 100 Testbildern 64 % Monster
+  und 79 % Menschen erkannt, gegenueber 41 % und 72 % beim Lehrer.
+* **YOLO11 statt YOLO26.** Auf denselben Daten ist YOLO26 auf Testbildern
+  vorsichtiger, verschiesst im Spiel aber ein Drittel mehr Munition fuer
+  dieselben Treffer (Trefferquote 55 % gegen 71 %).
+
+`src/compare_decoding.py` vergleicht Detektoren nebeneinander in echter
+Echtzeit: Waehrend der Inferenz laeuft das Spiel weiter. Treffer zaehlen ab
+Episodenstart, der Weckschuss aus `env.wake()` ist herausgerechnet.
 
 ## Dritte Stufe: Wesen, die der Agent nicht kennt
 
@@ -296,6 +320,9 @@ klang nach Verschwendung. Gemessen: 0,85 Schuss je Entscheidung bei 4, 2 und
 | `src/classifier.py` | Hypothesen-Turnier für Unbekanntes |
 | `src/eval_unknown.py` | Einzelbild gegen Beobachtungsfenster |
 | `src/results.py`, `src/results_show.py` | Ergebnisarchiv |
+| `src/yolo_detector.py` | YOLO (World oder destilliert) mit derselben Schnittstelle |
+| `src/distill.py` | LocateAnything beschriftet, YOLO lernt |
+| `src/compare_decoding.py` | Detektoren nebeneinander in Echtzeit, als Video |
 
 Drei Details der Engine, die nicht offensichtlich sind und in `env.py`
 gekapselt werden:
