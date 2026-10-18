@@ -15,3 +15,11 @@ _vizdoom.cfg
 
 # Persoenliches Hilfsskript (enthaelt eine Sitzungs-ID)
 restar.sh
+
+# Destillation: Trainingsdaten und YOLO-Gewichte, reproduzierbar mit src/distill.py
+data/
+models/
+weights/
+
+# Videos zum Artikel: gross, mit src/compare_decoding.py reproduzierbar
+posts/img/*.mp4

@@ -78,6 +78,12 @@ def parse_args():
     ap.add_argument("--emphasis", type=int, default=0,
                     help="Schluesselmomente (Beobachtung, Einordnung) so oft zusaetzlich "
                          "in die Aufzeichnung schreiben - sonst huschen sie vorbei")
+    ap.add_argument("--decoding", default="guided", choices=["guided", "hybrid", "slow"],
+                    help="Dekodierung von LocateAnything: guided (Default, schnell), "
+                         "hybrid (Modellcode), slow (Einzeltoken)")
+    ap.add_argument("--detector", default="locateanything",
+                    help="locateanything, oder Pfad zu YOLO-Gewichten - etwa das "
+                         "von src/distill.py trainierte Modell (Echtzeit)")
     ap.add_argument("--fake-detector", action="store_true",
                     help="ohne Modell laufen, Boxen aus der Engine (nur zum Testen)")
     return ap.parse_args()
@@ -139,11 +145,15 @@ def main():
     if args.fake_detector:
         detector = _EngineDetector(env)
         print("Detektor: Engine-Labels (Testmodus)")
+    elif args.detector != "locateanything":
+        from yolo_detector import YoloDetector
+        detector = YoloDetector(args.detector)
+        print(f"Detektor: YOLO ({args.detector})")
     else:
         from detector import LocateAnythingDetector
         print("Lade LocateAnything-3B ...", flush=True)
         t0 = time.perf_counter()
-        detector = LocateAnythingDetector()
+        detector = LocateAnythingDetector(decoding=args.decoding)
         print(f"Modell bereit ({time.perf_counter() - t0:.1f}s)")
     print(f"Feindlich:  {', '.join(c for c in args.classes if c not in args.protected)}")
     print(f"Geschuetzt: {', '.join(args.protected)}", flush=True)

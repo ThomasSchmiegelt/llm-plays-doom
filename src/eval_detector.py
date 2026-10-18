@@ -14,8 +14,9 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from bot import AimBot                                              # noqa: E402
-from detector import (HOSTILE_CLASSES, PROTECTED_CLASSES,           # noqa: E402
-                      Detection, LocateAnythingDetector, _iou)
+from detector import (DECODING_MODES, GUIDED_BOX_THRESHOLD,         # noqa: E402
+                      HOSTILE_CLASSES,
+                      PROTECTED_CLASSES, Detection, LocateAnythingDetector, _iou)
 from env import DoomEnv                                             # noqa: E402
 from results import record                                          # noqa: E402
 
@@ -56,6 +57,12 @@ def evaluate(detector, samples, classes, protected, bot):
                 stat[f"{box.kind}_miss"] += 1
             else:
                 stat[f"{box.kind}_as_{'human' if best.protected else 'monster'}"] += 1
+        # Fehlalarm: eine Box, die zu keiner Figur der Engine passt. Ohne
+        # diese Zahl gewinnt jeder Detektor, der einfach mehr Boxen ausgibt.
+        for det in dets:
+            if all(_iou(det, Detection(b.x1, b.y1, b.x2, b.y2, "")) < IOU_MATCH
+                   for b in truth):
+                stat["false_alarm"] += 1
     return stat, latencies
 
 
@@ -70,6 +77,15 @@ def main():
     ap.add_argument("--variants", nargs="+", default=[],
                     help="zusaetzliche Prompt-Varianten, Klassen mit | getrennt; "
                          "geschuetzte Klasse mit ! markieren")
+    ap.add_argument("--decoding", nargs="+", default=["guided"], choices=DECODING_MODES,
+                    help="Dekodiermodi, die nacheinander gemessen werden")
+    ap.add_argument("--detector", default="locateanything",
+                    help="locateanything, oder Pfad zu YOLO-Gewichten "
+                         "(z. B. yolov8x-worldv2.pt oder ein destilliertes Modell)")
+    ap.add_argument("--conf", nargs="+", type=float, default=[0.15],
+                    help="Konfidenzschwellen fuer YOLO")
+    ap.add_argument("--box-threshold", nargs="+", type=float, default=[GUIDED_BOX_THRESHOLD],
+                    help="Schwellen des Schiedsrichters im Modus guided")
     args = ap.parse_args()
 
     width, height = (int(v) for v in args.resolution.split("x"))
@@ -84,12 +100,26 @@ def main():
         variants.append(([c.lstrip("!") for c in classes],
                          [c[1:] for c in classes if c.startswith("!")]))
 
-    detector = LocateAnythingDetector()
+    yolo = args.detector != "locateanything"
+    if yolo:
+        from yolo_detector import YoloDetector
+        detector = YoloDetector(args.detector)
+        args.decoding = ["yolo"]
+    else:
+        detector = LocateAnythingDetector()
     bot = AimBot(width, height, 90.0 / width)
-    print(f"{'Prompt':<46}{'Monster':>9}{'Mensch':>9}{'Mensch->Monster':>17}{'ms':>7}")
-    print("-" * 88)
+    print(f"{'Prompt':<38}{'Modus':>12}{'Monster':>9}{'Mensch':>9}{'Mensch->Monster':>17}{'Fehlalarm':>11}{'ms':>7}")
+    print("-" * 99)
     rows = []
-    for classes, protected in variants:
+    runs = [(v, d, t) for v in variants for d in args.decoding
+            for t in (args.box_threshold if d == "guided" else
+                      args.conf if d == "yolo" else [None])]
+    for (classes, protected), decoding, threshold in runs:
+        detector.decoding = decoding
+        if decoding == "yolo":
+            detector.conf = threshold
+        elif threshold is not None:
+            detector.box_threshold = threshold
         stat, latencies = evaluate(detector, samples, classes, protected, bot)
         m_total = sum(stat[k] for k in stat if k.startswith("monster_"))
         h_total = sum(stat[k] for k in stat if k.startswith("human_"))
@@ -97,13 +127,17 @@ def main():
         h_rec = stat["human_as_human"] / h_total if h_total else 0.0
         confuse = stat["human_as_monster"] / h_total if h_total else 0.0
         ms = statistics.median(latencies) * 1000
+        false_alarms = stat["false_alarm"] / len(samples)
         label = ", ".join(classes)
-        rows.append(dict(classes=label, monster_recall=round(m_rec, 3),
+        mode = decoding if threshold is None else f"{decoding} {threshold:g}"
+        rows.append(dict(classes=label, decoding=mode, monster_recall=round(m_rec, 3),
                          human_recall=round(h_rec, 3),
-                         human_as_monster=round(confuse, 3), ms=round(ms)))
-        print(f"{label[:46]:<46}{m_rec:>8.0%}{h_rec:>9.0%}{confuse:>17.0%}{ms:>7.0f}")
-    print("\nMonster / Mensch = Anteil korrekt gelabelt. Die letzte Spalte ist die "
-          "\ngefaehrliche: ein Mensch, den das Modell fuer ein Monster haelt.")
+                         human_as_monster=round(confuse, 3),
+                         false_alarms_per_frame=round(false_alarms, 2), ms=round(ms)))
+        print(f"{label[:38]:<38}{mode:>12}{m_rec:>9.0%}{h_rec:>9.0%}{confuse:>17.0%}{false_alarms:>11.2f}{ms:>7.0f}")
+    print("\nMonster / Mensch = Anteil korrekt gelabelt. Mensch->Monster ist die "
+          "\ngefaehrliche Spalte: ein Mensch, den das Modell fuer ein Monster haelt."
+          "\nFehlalarm = Boxen je Bild, an deren Stelle laut Engine nichts steht.")
     path = record("eval_detector", vars(args), rows,
                   notes=f"{len(samples)} Frames, {total} Engine-Boxen, IoU >= {IOU_MATCH}.")
     print(f"Gesichert: {path}")
