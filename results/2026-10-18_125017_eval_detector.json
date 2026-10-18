@@ -1,0 +1,77 @@
+{
+  "tool": "eval_detector",
+  "recorded_at": "2026-10-18_125017",
+  "unix_time": 1792320617,
+  "provenance": "measured",
+  "params": {
+    "scenario": "arena_mixed",
+    "frames": 24,
+    "seed": 11,
+    "monsters": 7,
+    "humans": 5,
+    "resolution": "640x480",
+    "variants": [],
+    "decoding": [
+      "guided",
+      "hybrid"
+    ],
+    "detector": "locateanything",
+    "conf": [
+      0.15
+    ],
+    "box_threshold": [
+      0.05
+    ]
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.99.02",
+    "torch": "2.11.0+cu128"
+  },
+  "code": {
+    "files": {
+      "bot.py": "6b9c6bdde365",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "e2cb291ea31f",
+      "compare_decoding.py": "f58138847a59",
+      "detector.py": "5c958cefafb9",
+      "distill.py": "ed0c60426716",
+      "env.py": "3372a38706bf",
+      "eval_behaviour.py": "068fd02055cf",
+      "eval_detector.py": "db5179264a6f",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "52d391d4bd6d",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "story_film.py": "c330c8997793",
+      "tracking.py": "377697e7bae4",
+      "vertical.py": "41352bdfad45",
+      "yolo_detector.py": "f1978444b3e1"
+    },
+    "combined": "3a0d9e28d371"
+  },
+  "notes": "24 Frames, 72 Engine-Boxen, IoU >= 0.35.",
+  "rows": [
+    {
+      "classes": "brown insect monster, pink fleshy worm creature, orange flying skull, blue shelled monster, grey armored human soldier",
+      "decoding": "guided 0.05",
+      "monster_recall": 0.523,
+      "human_recall": 0.857,
+      "human_as_monster": 0.0,
+      "false_alarms_per_frame": 0.38,
+      "ms": 476
+    },
+    {
+      "classes": "brown insect monster, pink fleshy worm creature, orange flying skull, blue shelled monster, grey armored human soldier",
+      "decoding": "hybrid",
+      "monster_recall": 0.614,
+      "human_recall": 0.571,
+      "human_as_monster": 0.0,
+      "false_alarms_per_frame": 1.25,
+      "ms": 1555
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "tool": "eval_detector",
+  "recorded_at": "2026-10-18_133152",
+  "unix_time": 1792323112,
+  "provenance": "measured",
+  "params": {
+    "scenario": "arena_mixed",
+    "frames": 100,
+    "seed": 11,
+    "monsters": 7,
+    "humans": 5,
+    "resolution": "640x480",
+    "variants": [],
+    "decoding": [
+      "yolo"
+    ],
+    "detector": "models/distill/weights/best.pt",
+    "conf": [
+      0.1,
+      0.2,
+      0.3
+    ],
+    "box_threshold": [
+      0.05
+    ]
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.99.02",
+    "torch": "2.11.0+cu128"
+  },
+  "code": {
+    "files": {
+      "bot.py": "6b9c6bdde365",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "e2cb291ea31f",
+      "compare_decoding.py": "4a53683c1d85",
+      "detector.py": "5c958cefafb9",
+      "distill.py": "ed0c60426716",
+      "env.py": "3372a38706bf",
+      "eval_behaviour.py": "068fd02055cf",
+      "eval_detector.py": "db5179264a6f",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "52d391d4bd6d",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "story_film.py": "c330c8997793",
+      "tracking.py": "377697e7bae4",
+      "vertical.py": "41352bdfad45",
+      "yolo_detector.py": "e6f850b2817d"
+    },
+    "combined": "4198ec129b91"
+  },
+  "notes": "100 Frames, 196 Engine-Boxen, IoU >= 0.35.",
+  "rows": [
+    {
+      "classes": "brown insect monster, pink fleshy worm creature, orange flying skull, blue shelled monster, grey armored human soldier",
+      "decoding": "yolo 0.1",
+      "monster_recall": 0.646,
+      "human_recall": 0.8,
+      "human_as_monster": 0.02,
+      "false_alarms_per_frame": 1.48,
+      "ms": 9
+    },
+    {
+      "classes": "brown insect monster, pink fleshy worm creature, orange flying skull, blue shelled monster, grey armored human soldier",
+      "decoding": "yolo 0.2",
+      "monster_recall": 0.635,
+      "human_recall": 0.79,
+      "human_as_monster": 0.01,
+      "false_alarms_per_frame": 1.01,
+      "ms": 9
+    },
+    {
+      "classes": "brown insect monster, pink fleshy worm creature, orange flying skull, blue shelled monster, grey armored human soldier",
+      "decoding": "yolo 0.3",
+      "monster_recall": 0.531,
+      "human_recall": 0.79,
+      "human_as_monster": 0.01,
+      "false_alarms_per_frame": 0.89,
+      "ms": 9
+    }
+  ]
+}

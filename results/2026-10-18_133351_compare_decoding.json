@@ -1,0 +1,133 @@
+{
+  "tool": "compare_decoding",
+  "recorded_at": "2026-10-18_133351",
+  "unix_time": 1792323231,
+  "provenance": "measured",
+  "params": {
+    "modes": [
+      "models/distill/weights/best.pt",
+      "models/distill26/weights/best.pt"
+    ],
+    "titles": [
+      "YOLO11s",
+      "YOLO26s"
+    ],
+    "seconds": 30,
+    "seed": 33,
+    "monsters": 8,
+    "humans": 3,
+    "tics": 4,
+    "out": "out/yolo11_vs_26_seed33.mp4"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.99.02",
+    "torch": "2.11.0+cu128"
+  },
+  "code": {
+    "files": {
+      "bot.py": "6b9c6bdde365",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "e2cb291ea31f",
+      "compare_decoding.py": "4a53683c1d85",
+      "detector.py": "5c958cefafb9",
+      "distill.py": "ed0c60426716",
+      "env.py": "3372a38706bf",
+      "eval_behaviour.py": "068fd02055cf",
+      "eval_detector.py": "db5179264a6f",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "52d391d4bd6d",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "story_film.py": "c330c8997793",
+      "tracking.py": "377697e7bae4",
+      "vertical.py": "41352bdfad45",
+      "yolo_detector.py": "e6f850b2817d"
+    },
+    "combined": "4198ec129b91"
+  },
+  "notes": "Echtzeit: waehrend der Inferenz laeuft das Spiel weiter.",
+  "rows": [
+    {
+      "decisions": 263,
+      "shots": 34,
+      "friendly_fire": 0,
+      "hits": 22,
+      "bullets": 48,
+      "mode": "models/distill/weights/best.pt",
+      "ms_median": 10.021775000495836,
+      "incidents": []
+    },
+    {
+      "decisions": 263,
+      "shots": 96,
+      "friendly_fire": 3,
+      "hits": 62,
+      "bullets": 112,
+      "mode": "models/distill26/weights/best.pt",
+      "ms_median": 11.074211999584804,
+      "incidents": [
+        {
+          "tic": 968,
+          "seen_humans": 1,
+          "target": "blue shelled monster",
+          "truth": [
+            [
+              "human",
+              484,
+              547,
+              148
+            ],
+            [
+              "human",
+              338,
+              342,
+              42
+            ]
+          ]
+        },
+        {
+          "tic": 972,
+          "seen_humans": 1,
+          "target": "blue shelled monster",
+          "truth": [
+            [
+              "human",
+              475,
+              570,
+              156
+            ],
+            [
+              "human",
+              338,
+              342,
+              42
+            ]
+          ]
+        },
+        {
+          "tic": 976,
+          "seen_humans": 1,
+          "target": "blue shelled monster",
+          "truth": [
+            [
+              "human",
+              502,
+              565,
+              165
+            ],
+            [
+              "human",
+              338,
+              342,
+              42
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

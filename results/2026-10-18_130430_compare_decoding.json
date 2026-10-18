@@ -1,0 +1,221 @@
+{
+  "tool": "compare_decoding",
+  "recorded_at": "2026-10-18_130430",
+  "unix_time": 1792321470,
+  "provenance": "measured",
+  "params": {
+    "modes": [
+      "hybrid",
+      "guided",
+      "models/distill/weights/best.pt"
+    ],
+    "titles": [
+      "Original: hybrid",
+      "Lehrer: guided",
+      "Schueler: YOLO11s"
+    ],
+    "seconds": 30,
+    "seed": 21,
+    "monsters": 8,
+    "humans": 3,
+    "tics": 4,
+    "out": "out/vergleich_alle_drei.mp4"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "gpu": "NVIDIA GeForce RTX 3090, 595.99.02",
+    "torch": "2.11.0+cu128"
+  },
+  "code": {
+    "files": {
+      "bot.py": "6b9c6bdde365",
+      "classifier.py": "aa06d7cd2b34",
+      "compare_ammo.py": "e2cb291ea31f",
+      "compare_decoding.py": "cddf6034d64d",
+      "detector.py": "5c958cefafb9",
+      "distill.py": "ed0c60426716",
+      "env.py": "3372a38706bf",
+      "eval_behaviour.py": "068fd02055cf",
+      "eval_detector.py": "db5179264a6f",
+      "eval_policy.py": "923d91840e6e",
+      "eval_unknown.py": "0e91abaa5e81",
+      "main.py": "52d391d4bd6d",
+      "make_social.py": "044163520400",
+      "overlay.py": "d89626930f9b",
+      "results.py": "4c81093b97f0",
+      "results_show.py": "babdf5bc11aa",
+      "story_film.py": "c330c8997793",
+      "tracking.py": "377697e7bae4",
+      "vertical.py": "41352bdfad45",
+      "yolo_detector.py": "e6f850b2817d"
+    },
+    "combined": "0814b588d2da"
+  },
+  "notes": "Echtzeit: waehrend der Inferenz laeuft das Spiel weiter.",
+  "rows": [
+    {
+      "decisions": 14,
+      "shots": 1,
+      "friendly_fire": 0,
+      "hits": 4.0,
+      "mode": "hybrid",
+      "ms_median": 2059.3571149993295,
+      "incidents": []
+    },
+    {
+      "decisions": 37,
+      "shots": 3,
+      "friendly_fire": 0,
+      "hits": 8.0,
+      "mode": "guided",
+      "ms_median": 578.3269554999606,
+      "incidents": []
+    },
+    {
+      "decisions": 263,
+      "shots": 47,
+      "friendly_fire": 4,
+      "hits": 44.0,
+      "mode": "models/distill/weights/best.pt",
+      "ms_median": 9.604965999642445,
+      "incidents": [
+        {
+          "tic": 152,
+          "seen_humans": 0,
+          "target": "orange flying skull",
+          "truth": [
+            [
+              "human",
+              286,
+              327,
+              78
+            ],
+            [
+              "monster",
+              461,
+              490,
+              43
+            ],
+            [
+              "monster",
+              242,
+              408,
+              260
+            ],
+            [
+              "monster",
+              418,
+              442,
+              31
+            ],
+            [
+              "monster",
+              59,
+              181,
+              158
+            ]
+          ]
+        },
+        {
+          "tic": 156,
+          "seen_humans": 0,
+          "target": "orange flying skull",
+          "truth": [
+            [
+              "human",
+              281,
+              323,
+              79
+            ],
+            [
+              "monster",
+              430,
+              456,
+              33
+            ],
+            [
+              "monster",
+              466,
+              495,
+              40
+            ],
+            [
+              "monster",
+              251,
+              400,
+              190
+            ],
+            [
+              "monster",
+              55,
+              183,
+              161
+            ]
+          ]
+        },
+        {
+          "tic": 224,
+          "seen_humans": 0,
+          "target": "orange flying skull",
+          "truth": [
+            [
+              "monster",
+              111,
+              208,
+              122
+            ],
+            [
+              "human",
+              246,
+              288,
+              100
+            ],
+            [
+              "monster",
+              282,
+              347,
+              99
+            ],
+            [
+              "monster",
+              520,
+              545,
+              38
+            ],
+            [
+              "monster",
+              190,
+              457,
+              373
+            ],
+            [
+              "monster",
+              461,
+              485,
+              35
+            ]
+          ]
+        },
+        {
+          "tic": 860,
+          "seen_humans": 1,
+          "target": "blue shelled monster",
+          "truth": [
+            [
+              "monster",
+              284,
+              365,
+              105
+            ],
+            [
+              "human",
+              230,
+              291,
+              140
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}
